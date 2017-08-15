@@ -176,9 +176,141 @@ namespace ImageSubtraction
 		}
 
 
-		private void DetectBlobsAndUpdateGui2()
+
+
+		public void detectBlobsAndUpdateGui2()
 		{
-			
+			Mat imgFrame1 = default(Mat);
+			Mat imgFrame2 = default(Mat);
+
+			bool blnFirstFrame = true;
+
+			imgFrame1 = capVideo.QueryFrame();
+			imgFrame2 = capVideo.QueryFrame();
+
+
+			while ((blnFormClosing == false))
+			{
+				List<Blob> blobs = new List<Blob>();
+
+				Mat imgFrame1Copy = imgFrame1.Clone();
+				Mat imgFrame2Copy = imgFrame2.Clone();
+
+				Mat imgDifference = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
+				Mat imgThresh = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
+
+				CvInvoke.CvtColor(imgFrame1Copy, imgFrame1Copy, ColorConversion.Bgr2Gray);
+				CvInvoke.CvtColor(imgFrame2Copy, imgFrame2Copy, ColorConversion.Bgr2Gray);
+
+				CvInvoke.GaussianBlur(imgFrame1Copy, imgFrame1Copy, new Size(5, 5), 0);
+				CvInvoke.GaussianBlur(imgFrame2Copy, imgFrame2Copy, new Size(5, 5), 0);
+
+				CvInvoke.AbsDiff(imgFrame1Copy, imgFrame2Copy, imgDifference);
+
+				CvInvoke.Threshold(imgDifference, imgThresh, 30, 255.0, ThresholdType.Binary);
+
+				CvInvoke.Imshow("imgThresh", imgThresh);
+
+				Mat structuringElement3x3 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+				Mat structuringElement5x5 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
+				Mat structuringElement7x7 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(7, 7), new Point(-1, -1));
+				Mat structuringElement9x9 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(9, 9), new Point(-1, -1));
+
+				CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default, new MCvScalar(0, 0, 0));
+				CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default, new MCvScalar(0, 0, 0));
+				CvInvoke.Erode(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default, new MCvScalar(0, 0, 0));
+
+				Mat imgThreshCopy = imgThresh.Clone();
+
+				VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+
+				CvInvoke.FindContours(imgThreshCopy, contours, null, RetrType.External, ChainApproxMethod.ChainApproxSimple);
+
+				Mat imgContours = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
+
+				CvInvoke.DrawContours(imgContours, contours, -1, SCALAR_WHITE, -1);
+
+				CvInvoke.Imshow("imgContours", imgContours);
+
+				VectorOfVectorOfPoint convexHulls = new VectorOfVectorOfPoint(contours.Size);
+
+				for (int i = 0; i <= contours.Size - 1; i++)
+				{
+					CvInvoke.ConvexHull(contours[i], convexHulls[i]);
+				}
+
+
+				for (int i = 0; i <= convexHulls.Size - 1; i++)
+				{
+					Blob possibleBlob = new Blob(convexHulls[i]);
+
+					if ((possibleBlob.intRectArea > 100 & possibleBlob.dblAspectRatio >= 0.2 & possibleBlob.dblAspectRatio <= 1.2 & possibleBlob.boundingRect.Width > 15 & possibleBlob.boundingRect.Height > 20 & possibleBlob.dblDiagonalSize > 30.0))
+					{
+						blobs.Add(possibleBlob);
+					}
+
+				}
+
+				Mat imgConvexHulls = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
+
+				convexHulls = new VectorOfVectorOfPoint();
+				//re-instiantate contours since contours.Clear() does not seem to work as expected
+
+				foreach (Blob blob in blobs)
+				{
+					convexHulls.Push(blob.contour);
+				}
+
+				CvInvoke.DrawContours(imgConvexHulls, convexHulls, -1, SCALAR_WHITE, -1);
+
+				CvInvoke.Imshow("imgConvexHulls", imgConvexHulls);
+
+				imgFrame2Copy = imgFrame2.Clone();
+				//get another copy of frame 2 since we changed the previous frame 2 copy in the processing above
+
+				//for each blob
+				foreach (Blob blob in blobs)
+				{
+					CvInvoke.Rectangle(imgFrame2Copy, blob.boundingRect, SCALAR_RED, 2);
+					//draw a red box around the blob
+					CvInvoke.Circle(imgFrame2Copy, blob.centerPosition, 3, SCALAR_GREEN, -1);
+					//draw a filled-in green circle at the center
+				}
+
+				imageBox1.Image = imgFrame2Copy;
+
+				//now we prepare for the next iteration
+
+				imgFrame1 = imgFrame2.Clone();
+				//move frame 1 up to where frame 2 is
+
+				//if there is at least one more frame
+				if ((capVideo.GetCaptureProperty(CapProp.PosFrames) + 1 < capVideo.GetCaptureProperty(CapProp.FrameCount)))
+				{
+					imgFrame2 = capVideo.QueryFrame();
+					//get the next frame
+					//else if there is not at least one more frame
+				}
+				else
+				{
+					//txtInfo.AppendText("end of video");
+					//show end of video message
+					break; // TODO: might not be correct. Was : Exit While
+					//and jump out of while loop
+				}
+
+				Application.DoEvents();
+
+				blnFirstFrame = false;
+
+			}
+
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			capVideo = new VideoCapture(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\768x576.avi");
+			detectBlobsAndUpdateGui2();
 		}
 	}
 }
