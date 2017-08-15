@@ -92,11 +92,11 @@ namespace TestEmgu
 
 	    public void TrackBlobsAndUpdateGui()
 	    {
-		    //var blobs = new List<Blob>();
+		    var blobs = new List<Blob>();
 
 		    var crossingLine = new Point[3];
 
-		    // var carCount = 0;
+		    var carCount = 0;
 
 		    var imgFrame1 = _capVideo.QueryFrame();
 		    var imgFrame2 = _capVideo.QueryFrame();
@@ -177,9 +177,7 @@ namespace TestEmgu
 
 			    DrawAndShowContours(imgThresh.Size, currentFrameBlobs, "imgCurrentFrameBlobs");
 
-			    var blobs = new List<Blob>();
-
-				if (isFirstFrame)
+			    if (isFirstFrame)
 			    {
 				    foreach (var currentFrameBlob in currentFrameBlobs)
 				    {
@@ -197,14 +195,12 @@ namespace TestEmgu
 
 			    DrawBlobInfoOnImage(ref blobs, ref imgFrame2Copy);
 
-
-			    var carCount = 0;
-				dynamic atLeastOneBlobCrossedTheLine = CheckIfBlobsCrossedTheLine(ref blobs, ref horizontalLinePosition, ref carCount);
+			    dynamic atLeastOneBlobCrossedTheLine = CheckIfBlobsCrossedTheLine(ref blobs, ref horizontalLinePosition, ref carCount);
 
 			    CvInvoke.Line(imgFrame2Copy, crossingLine[0], crossingLine[1],
 				    (atLeastOneBlobCrossedTheLine) ? _scalarGreen : _scalarRed, 2);
-			    
-				DrawCarCountOnImage(ref carCount, ref imgFrame2Copy);
+
+			    DrawCarCountOnImage(ref carCount, ref imgFrame2Copy);
 
 			    imageBox.Image = imgFrame2Copy;
 
