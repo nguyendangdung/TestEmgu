@@ -36,7 +36,7 @@ namespace TestEmgu
 	    private VideoCapture _capVideo;
 
 
-	    public bool BlnFormClosing;
+	    public bool isFormClosing;
 
 
 		public Form1()
@@ -46,7 +46,7 @@ namespace TestEmgu
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-	        BlnFormClosing = true;
+	        isFormClosing = true;
 	        CvInvoke.DestroyAllWindows();
 
         }
@@ -118,10 +118,10 @@ namespace TestEmgu
 		    crossingLine[1].X = imgFrame1.Cols - 1;
 		    crossingLine[1].Y = horizontalLinePosition;
 
-		    bool blnFirstFrame = true;
+		    bool isFirstFrame = true;
 
 
-		    while ((BlnFormClosing == false))
+		    while ((isFormClosing == false))
 		    {
 			    List<Blob> currentFrameBlobs = new List<Blob>();
 
@@ -161,7 +161,7 @@ namespace TestEmgu
 
 			    CvInvoke.FindContours(imgThreshCopy, contours, null, RetrType.External, ChainApproxMethod.ChainApproxSimple);
 
-			    drawAndShowContours(imgThresh.Size, contours, "imgContours");
+			    DrawAndShowContours(imgThresh.Size, contours, "imgContours");
 
 			    VectorOfVectorOfPoint convexHulls = new VectorOfVectorOfPoint(contours.Size);
 
@@ -170,7 +170,7 @@ namespace TestEmgu
 				    CvInvoke.ConvexHull(contours[i], convexHulls[i]);
 			    }
 
-			    drawAndShowContours(imgThresh.Size, convexHulls, "imgConvexHulls");
+			    DrawAndShowContours(imgThresh.Size, convexHulls, "imgConvexHulls");
 
 
 			    for (int i = 0; i <= contours.Size - 1; i++)
@@ -184,9 +184,9 @@ namespace TestEmgu
 
 			    }
 
-			    drawAndShowContours(imgThresh.Size, currentFrameBlobs, "imgCurrentFrameBlobs");
+			    DrawAndShowContours(imgThresh.Size, currentFrameBlobs, "imgCurrentFrameBlobs");
 
-			    if ((blnFirstFrame == true))
+			    if ((isFirstFrame == true))
 			    {
 				    foreach (Blob currentFrameBlob in currentFrameBlobs)
 				    {
@@ -195,16 +195,16 @@ namespace TestEmgu
 			    }
 			    else
 			    {
-				    matchCurrentFrameBlobsToExistingBlobs(ref blobs, ref currentFrameBlobs);
+				    MatchCurrentFrameBlobsToExistingBlobs(ref blobs, ref currentFrameBlobs);
 			    }
 
-			    drawAndShowContours(imgThresh.Size, blobs, "imgBlobs");
+			    DrawAndShowContours(imgThresh.Size, blobs, "imgBlobs");
 
 			    imgFrame2Copy = imgFrame2.Clone();
 
-			    drawBlobInfoOnImage(ref blobs, ref imgFrame2Copy);
+			    DrawBlobInfoOnImage(ref blobs, ref imgFrame2Copy);
 
-			    dynamic atLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(ref blobs, ref horizontalLinePosition, ref carCount);
+			    dynamic atLeastOneBlobCrossedTheLine = CheckIfBlobsCrossedTheLine(ref blobs, ref horizontalLinePosition, ref carCount);
 
 			    if ((atLeastOneBlobCrossedTheLine))
 			    {
@@ -215,7 +215,7 @@ namespace TestEmgu
 				    CvInvoke.Line(imgFrame2Copy, crossingLine[0], crossingLine[1], _scalarRed, 2);
 			    }
 
-			    drawCarCountOnImage(ref carCount, ref imgFrame2Copy);
+			    DrawCarCountOnImage(ref carCount, ref imgFrame2Copy);
 
 			    imageBox.Image = imgFrame2Copy;
 
@@ -241,14 +241,14 @@ namespace TestEmgu
 				    //and jump out of while loop
 			    }
 
-			    blnFirstFrame = false;
+			    isFirstFrame = false;
 
 			    Application.DoEvents();
 
 		    }
 	    }
 
-	    public void drawAndShowContours(Size imageSize, VectorOfVectorOfPoint contours, string strImageName)
+	    public void DrawAndShowContours(Size imageSize, VectorOfVectorOfPoint contours, string strImageName)
 	    {
 		    Mat image = new Mat(imageSize, DepthType.Cv8U, 3);
 
@@ -258,7 +258,7 @@ namespace TestEmgu
 
 	    }
 
-		public void drawAndShowContours(Size imageSize, List<Blob> blobs, string strImageName)
+		public void DrawAndShowContours(Size imageSize, List<Blob> blobs, string strImageName)
 	    {
 		    Mat image = new Mat(imageSize, DepthType.Cv8U, 3);
 
@@ -280,7 +280,7 @@ namespace TestEmgu
 
 
 
-	    public void drawBlobInfoOnImage(ref List<Blob> blobs, ref Mat imgFrame2Copy)
+	    public void DrawBlobInfoOnImage(ref List<Blob> blobs, ref Mat imgFrame2Copy)
 	    {
 
 		    for (int i = 0; i <= blobs.Count - 1; i++)
@@ -304,13 +304,13 @@ namespace TestEmgu
 
 
 
-	    public void drawCarCountOnImage(ref int carCount, ref Mat imgFrame2Copy)
+	    public void DrawCarCountOnImage(ref int carCount, ref Mat imgFrame2Copy)
 	    {
 		    FontFace fontFace = FontFace.HersheySimplex;
 		    double dblFontScale = Convert.ToDouble(imgFrame2Copy.Rows * imgFrame2Copy.Cols) / 300000.0;
 		    int intFontThickness = Convert.ToInt32(Math.Round(dblFontScale * 1.5));
 
-		    Size textSize = getTextSize(carCount.ToString(), (int)fontFace, dblFontScale, intFontThickness);
+		    Size textSize = GetTextSize(carCount.ToString(), (int)fontFace, dblFontScale, intFontThickness);
 
 		    Point bottomLeftTextPosition = new Point();
 
@@ -321,7 +321,7 @@ namespace TestEmgu
 	    }
 
 
-		public Size getTextSize(string strText, int intFontFace, double dblFontScale, int intFontThickness)
+		public Size GetTextSize(string strText, int intFontFace, double dblFontScale, int intFontThickness)
 	    {
 
 		    Size textSize = new Size();
@@ -338,7 +338,7 @@ namespace TestEmgu
 
 
 
-	    public void matchCurrentFrameBlobsToExistingBlobs(ref List<Blob> existingBlobs, ref List<Blob> currentFrameBlobs)
+	    public void MatchCurrentFrameBlobsToExistingBlobs(ref List<Blob> existingBlobs, ref List<Blob> currentFrameBlobs)
 	    {
 		    foreach (Blob existingBlob in existingBlobs)
 		    {
@@ -358,7 +358,7 @@ namespace TestEmgu
 
 				    if ((existingBlobs[i].BlnStillBeingTracked == true))
 				    {
-					    double dblDistance = distanceBetweenPoints(currentFrameBlob.CenterPositions.Last(), existingBlobs[i].PredictedNextPosition);
+					    double dblDistance = DistanceBetweenPoints(currentFrameBlob.CenterPositions.Last(), existingBlobs[i].PredictedNextPosition);
 
 					    if ((dblDistance < dblLeastDistance))
 					    {
@@ -372,11 +372,11 @@ namespace TestEmgu
 
 			    if ((dblLeastDistance < currentFrameBlob.DblCurrentDiagonalSize * 0.5))
 			    {
-				    addBlobToExistingBlobs(currentFrameBlob, existingBlobs, ref intIndexOfLeastDistance);
+				    AddBlobToExistingBlobs(currentFrameBlob, existingBlobs, ref intIndexOfLeastDistance);
 			    }
 			    else
 			    {
-				    addNewBlob(currentFrameBlob, existingBlobs);
+				    AddNewBlob(currentFrameBlob, existingBlobs);
 			    }
 
 		    }
@@ -399,7 +399,7 @@ namespace TestEmgu
 	    }
 
 
-		public double distanceBetweenPoints(Point point1, Point point2)
+		public double DistanceBetweenPoints(Point point1, Point point2)
 	    {
 
 		    int intX = Math.Abs(point1.X - point2.X);
@@ -411,7 +411,7 @@ namespace TestEmgu
 
 
 
-	    public void addBlobToExistingBlobs(Blob currentFrameBlob, List<Blob> existingBlobs, ref int intIndex)
+	    public void AddBlobToExistingBlobs(Blob currentFrameBlob, List<Blob> existingBlobs, ref int intIndex)
 	    {
 		    existingBlobs[intIndex].CurrentContour = currentFrameBlob.CurrentContour;
 		    existingBlobs[intIndex].CurrentBoundingRect = currentFrameBlob.CurrentBoundingRect;
@@ -428,7 +428,7 @@ namespace TestEmgu
 
 
 
-	    public void addNewBlob(Blob currentFrameBlob, List<Blob> existingBlobs)
+	    public void AddNewBlob(Blob currentFrameBlob, List<Blob> existingBlobs)
 	    {
 		    currentFrameBlob.BlnCurrentMatchFoundOrNewBlob = true;
 
@@ -437,7 +437,7 @@ namespace TestEmgu
 	    }
 
 
-	    public bool checkIfBlobsCrossedTheLine(ref List<Blob> blobs, ref int horizontalLinePosition, ref int carCount)
+	    public bool CheckIfBlobsCrossedTheLine(ref List<Blob> blobs, ref int horizontalLinePosition, ref int carCount)
 	    {
 
 		    bool atLeastOneBlobCrossedTheLine = false;
