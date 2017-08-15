@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playvideo", "Playvideo\Play
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSubtraction", "ImageSubtraction\ImageSubtraction.csproj", "{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mouse", "mouse\mouse.csproj", "{9DD70D54-AB2B-4169-ABC2-505005F82433}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|x64.ActiveCfg = Release|Any CPU
 		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|x64.Build.0 = Release|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Debug|x64.Build.0 = Debug|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Release|x64.ActiveCfg = Release|Any CPU
+		{9DD70D54-AB2B-4169-ABC2-505005F82433}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
