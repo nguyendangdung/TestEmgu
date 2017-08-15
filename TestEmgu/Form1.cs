@@ -110,7 +110,7 @@ namespace TestEmgu
 		    var isFirstFrame = true;
 
 
-		    while ((IsFormClosing == false))
+		    while (!IsFormClosing)
 		    {
 			    var currentFrameBlobs = new List<Blob>();
 
