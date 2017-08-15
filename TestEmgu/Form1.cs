@@ -93,10 +93,8 @@ namespace TestEmgu
 	    public void TrackBlobsAndUpdateGui()
 	    {
 		    var blobs = new List<Blob>();
-
-		    var crossingLine = new Point[3];
-
 		    var carCount = 0;
+			var crossingLine = new Point[3];
 
 		    var imgFrame1 = _capVideo.QueryFrame();
 		    var imgFrame2 = _capVideo.QueryFrame();
