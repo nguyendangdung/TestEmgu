@@ -91,6 +91,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="768x576.avi" />
     <Content Include="concrt140.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
