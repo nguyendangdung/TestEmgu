@@ -174,5 +174,11 @@ namespace ImageSubtraction
 			});
 			imageBox1.Image = imgFrame2Copy;
 		}
+
+
+		private void DetectBlobsAndUpdateGui2()
+		{
+			
+		}
 	}
 }
