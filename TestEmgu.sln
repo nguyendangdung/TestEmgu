@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEmgu", "TestEmgu\TestEm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playvideo", "Playvideo\Playvideo.csproj", "{FE41F14B-174A-4C73-BBCB-7C150AE5B025}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSubtraction", "ImageSubtraction\ImageSubtraction.csproj", "{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{FE41F14B-174A-4C73-BBCB-7C150AE5B025}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE41F14B-174A-4C73-BBCB-7C150AE5B025}.Release|x64.ActiveCfg = Release|Any CPU
 		{FE41F14B-174A-4C73-BBCB-7C150AE5B025}.Release|x64.Build.0 = Release|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2654F2B-6226-487B-AFE5-D852D6C6B4D7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
