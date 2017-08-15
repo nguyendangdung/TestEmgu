@@ -15,35 +15,18 @@ namespace mouse
 {
 	public partial class Form1 : Form
 	{
+		readonly MCvScalar _scalarWhite = new MCvScalar(255.0, 255.0, 255.0);
 
-		MCvScalar SCALAR_BLACK = new MCvScalar(0.0, 0.0, 0.0);
-
-		MCvScalar SCALAR_WHITE = new MCvScalar(255.0, 255.0, 255.0);
-
-		MCvScalar SCALAR_BLUE = new MCvScalar(255.0, 0.0, 0.0);
-
-		MCvScalar SCALAR_GREEN = new MCvScalar(0.0, 255.0, 0.0);
-
-		MCvScalar SCALAR_RED = new MCvScalar(0.0, 0.0, 255.0);
+		readonly MCvScalar _scalarBlue = new MCvScalar(255.0, 0.0, 0.0);
 
 
-		Point currentMousePosition = new Point();
+		Point _currentMousePosition;
 
 
-		List<Point> mousePositions = new List<Point>();
+		readonly List<Point> _mousePositions = new List<Point>();
 
 
-		List<Point> predictedMousePosition = new List<Point>();
-
-
-		Mat imgBlank = default(Mat);
-
-		//=======================================================
-		//Service provided by Telerik (www.telerik.com)
-		//Conversion powered by NRefactory.
-		//Twitter: @telerik
-		//Facebook: facebook.com/telerik
-		//=======================================================
+		Mat _imgBlank = default(Mat);
 
 		public Form1()
 		{
@@ -53,21 +36,21 @@ namespace mouse
 		private void imageBox1_MouseMove(object sender, MouseEventArgs e)
 		{
 
-			currentMousePosition = imageBox1.PointToClient(Cursor.Position);
+			_currentMousePosition = imageBox1.PointToClient(Cursor.Position);
 
-			mousePositions.Add(currentMousePosition);
+			_mousePositions.Add(_currentMousePosition);
 
-			Point predictedMousePosition = PredictNextPosition(mousePositions);
+			Point predictedMousePosition = PredictNextPosition(_mousePositions);
 
-			label1.Text = ("current position        = " + mousePositions.Last().X.ToString() + ", " + mousePositions.Last().Y.ToString());
-			label2.Text = ("next predicted position = " + predictedMousePosition.X.ToString() + ", " + predictedMousePosition.Y.ToString());
+			label1.Text = ("current position        = " + _mousePositions.Last().X + ", " + _mousePositions.Last().Y);
+			label2.Text = ("next predicted position = " + predictedMousePosition.X + ", " + predictedMousePosition.Y);
 
-			imgBlank = new Mat(imageBox1.Size, DepthType.Cv8U, 3);
+			_imgBlank = new Mat(imageBox1.Size, DepthType.Cv8U, 3);
 
-			DrawCross(imgBlank, mousePositions.Last(), SCALAR_WHITE);
-			DrawCross(imgBlank, predictedMousePosition, SCALAR_BLUE);
+			DrawCross(_imgBlank, _mousePositions.Last(), _scalarWhite);
+			DrawCross(_imgBlank, predictedMousePosition, _scalarBlue);
 
-			imageBox1.Image = imgBlank;
+			imageBox1.Image = _imgBlank;
 
 			Application.DoEvents();
 		}
@@ -81,7 +64,7 @@ namespace mouse
 		private Point PredictNextPosition(List<Point> positions)
 		{
 			var predictedPosition = new Point();
-			var numPositions = mousePositions.Count;
+			var numPositions = _mousePositions.Count;
 			if (numPositions == 1)
 			{
 				return positions[0];
@@ -100,14 +83,14 @@ namespace mouse
 									((positions[1].X - positions[0].X) * 1);
 
 
-				var deltaX = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfXChanges / 3.0)));
+				var deltaX = Convert.ToInt32(Math.Round((sumOfXChanges / 3.0)));
 
 
 				var sumOfYChanges = ((positions[2].Y - positions[1].Y) * 2) +
 									((positions[1].Y - positions[0].Y) * 1);
 
 
-				var deltaY = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfYChanges / 3.0)));
+				var deltaY = Convert.ToInt32(Math.Round((sumOfYChanges / 3.0)));
 
 
 				predictedPosition.X = positions.Last().X + deltaX;
@@ -121,7 +104,7 @@ namespace mouse
 									((positions[1].X - positions[0].X) * 1);
 
 
-				var deltaX = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfXChanges / 6.0)));
+				var deltaX = Convert.ToInt32(Math.Round((sumOfXChanges / 6.0)));
 
 
 				var sumOfYChanges = ((positions[3].Y - positions[2].Y) * 3) +
@@ -129,7 +112,7 @@ namespace mouse
 									((positions[1].Y - positions[0].Y) * 1);
 
 
-				var deltaY = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfYChanges / 6.0)));
+				var deltaY = Convert.ToInt32(Math.Round((sumOfYChanges / 6.0)));
 
 
 				predictedPosition.X = positions.Last().X + deltaX;
@@ -144,7 +127,7 @@ namespace mouse
 									((positions[numPositions - 4].X - positions[numPositions - 5].X) * 1);
 
 
-				var deltaX = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfXChanges / 10.0)));
+				var deltaX = Convert.ToInt32(Math.Round((sumOfXChanges / 10.0)));
 
 
 				var sumOfYChanges = ((positions[numPositions - 1].Y - positions[numPositions - 2].Y) * 4) +
@@ -153,7 +136,7 @@ namespace mouse
 									((positions[numPositions - 4].Y - positions[numPositions - 5].Y) * 1);
 
 
-				var deltaY = Convert.ToInt32(Math.Round(Convert.ToDouble(sumOfYChanges / 10.0)));
+				var deltaY = Convert.ToInt32(Math.Round((sumOfYChanges / 10.0)));
 
 
 				predictedPosition.X = positions.Last().X + deltaX;
