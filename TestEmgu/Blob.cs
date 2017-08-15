@@ -10,22 +10,14 @@ namespace TestEmgu
 	public class Blob
 	{
 		public VectorOfPoint CurrentContour;
-
 		public Rectangle CurrentBoundingRect;
-
 		public List<Point> CenterPositions = new List<Point>();
-		public double DblCurrentDiagonalSize;
-
-		public double DblCurrentAspectRatio;
-		public int IntCurrentRectArea;
-
-
-		public bool BlnCurrentMatchFoundOrNewBlob;
-
-		public bool BlnStillBeingTracked;
-
+		public double CurrentDiagonalSize;
+		public double CurrentAspectRatio;
+		public int CurrentRectArea;
+		public bool CurrentMatchFoundOrNewBlob;
+		public bool StillBeingTracked;
 		public int IntNumOfConsecutiveFramesWithoutAMatch;
-
 		public Point PredictedNextPosition;
 
 		public Blob(VectorOfPoint contour)
@@ -45,16 +37,16 @@ namespace TestEmgu
 
 			CenterPositions.Add(currentCenter);
 
-			DblCurrentDiagonalSize = Math.Sqrt((Math.Pow(CurrentBoundingRect.Width, 2)) +
+			CurrentDiagonalSize = Math.Sqrt((Math.Pow(CurrentBoundingRect.Width, 2)) +
 												(Math.Pow(CurrentBoundingRect.Height, 2)));
 
-			DblCurrentAspectRatio = Convert.ToDouble(CurrentBoundingRect.Width) / 
+			CurrentAspectRatio = Convert.ToDouble(CurrentBoundingRect.Width) / 
 				Convert.ToDouble(CurrentBoundingRect.Height);
 
-			IntCurrentRectArea = CurrentBoundingRect.Width * CurrentBoundingRect.Height;
+			CurrentRectArea = CurrentBoundingRect.Width * CurrentBoundingRect.Height;
 
-			BlnStillBeingTracked = true;
-			BlnCurrentMatchFoundOrNewBlob = true;
+			StillBeingTracked = true;
+			CurrentMatchFoundOrNewBlob = true;
 
 			IntNumOfConsecutiveFramesWithoutAMatch = 0;
 
