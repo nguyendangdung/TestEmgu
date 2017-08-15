@@ -132,10 +132,10 @@ namespace TestEmgu
 
 			    CvInvoke.Imshow("imgThresh", imgThresh);
 
-			    var structuringElement3X3 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
+			    // var structuringElement3X3 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
 			    var structuringElement5X5 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
-			    var structuringElement7X7 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(7, 7), new Point(-1, -1));
-			    var structuringElement9X9 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(9, 9), new Point(-1, -1));
+			    //var structuringElement7X7 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(7, 7), new Point(-1, -1));
+			    //var structuringElement9X9 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(9, 9), new Point(-1, -1));
 
 			    for (var i = 0; i <= 1; i++)
 			    {
