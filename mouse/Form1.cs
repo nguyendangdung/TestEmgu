@@ -42,8 +42,9 @@ namespace mouse
 
 			Point predictedMousePosition = PredictNextPosition(_mousePositions);
 
-			label1.Text = ("current position        = " + _mousePositions.Last().X + ", " + _mousePositions.Last().Y);
-			label2.Text = ("next predicted position = " + predictedMousePosition.X + ", " + predictedMousePosition.Y);
+			textBox1.AppendText("current position        = " + _mousePositions.Last().X + ", " + _mousePositions.Last().Y + System.Environment.NewLine);
+			textBox1.AppendText("next predicted position = " + predictedMousePosition.X + ", " + predictedMousePosition.Y + System.Environment.NewLine);
+			textBox1.AppendText("--------------------------------------------------" + System.Environment.NewLine);
 
 			_imgBlank = new Mat(imageBox1.Size, DepthType.Cv8U, 3);
 
