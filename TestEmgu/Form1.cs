@@ -89,14 +89,14 @@ namespace TestEmgu
 			}
         }
 
-	    private void TrackBlobsAndUpdateGui()
-	    {
-		    throw new NotImplementedException();
-	    }
+	    //private void TrackBlobsAndUpdateGui()
+	    //{
+		   // throw new NotImplementedException();
+	    //}
 
 
 
-	    public void trackBlobsAndUpdateGUI()
+	    public void TrackBlobsAndUpdateGui()
 	    {
 		    Mat imgFrame1 = default(Mat);
 		    Mat imgFrame2 = default(Mat);
@@ -372,11 +372,11 @@ namespace TestEmgu
 
 			    if ((dblLeastDistance < currentFrameBlob.DblCurrentDiagonalSize * 0.5))
 			    {
-				    addBlobToExistingBlobs(ref currentFrameBlob, ref existingBlobs, ref intIndexOfLeastDistance);
+				    addBlobToExistingBlobs(currentFrameBlob, existingBlobs, ref intIndexOfLeastDistance);
 			    }
 			    else
 			    {
-				    addNewBlob(ref currentFrameBlob, ref existingBlobs);
+				    addNewBlob(currentFrameBlob, existingBlobs);
 			    }
 
 		    }
@@ -411,7 +411,7 @@ namespace TestEmgu
 
 
 
-	    public void addBlobToExistingBlobs(ref Blob currentFrameBlob, ref List<Blob> existingBlobs, ref int intIndex)
+	    public void addBlobToExistingBlobs(Blob currentFrameBlob, List<Blob> existingBlobs, ref int intIndex)
 	    {
 		    existingBlobs[intIndex].CurrentContour = currentFrameBlob.CurrentContour;
 		    existingBlobs[intIndex].CurrentBoundingRect = currentFrameBlob.CurrentBoundingRect;
@@ -428,7 +428,7 @@ namespace TestEmgu
 
 
 
-	    public void addNewBlob(ref Blob currentFrameBlob, ref List<Blob> existingBlobs)
+	    public void addNewBlob(Blob currentFrameBlob, List<Blob> existingBlobs)
 	    {
 		    currentFrameBlob.BlnCurrentMatchFoundOrNewBlob = true;
 
