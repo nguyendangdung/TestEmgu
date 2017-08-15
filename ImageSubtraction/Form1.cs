@@ -61,8 +61,8 @@ namespace ImageSubtraction
 				var frame1Copy = imgFrame1.Clone();
 				var frame2Copy = imgFrame2.Clone();
 
-				
-				
+
+
 
 				CvInvoke.CvtColor(frame1Copy, frame1Copy, ColorConversion.Bgr2Gray);
 				CvInvoke.CvtColor(frame2Copy, frame2Copy, ColorConversion.Bgr2Gray);
@@ -76,7 +76,9 @@ namespace ImageSubtraction
 				CvInvoke.Threshold(imgDifference, imgThresh, 30, 255.0, ThresholdType.Binary);
 
 				Dosomething1(imgThresh);
-				DoSomething2(imgThresh);
+				var contours = DoSomething2(imgThresh);
+
+				DoSomething3(contours, imgThresh, imgFrame2);
 
 				imgFrame1 = imgFrame2.Clone();
 
@@ -98,7 +100,7 @@ namespace ImageSubtraction
 			CvInvoke.Imshow("imgThresh", imgThresh);
 		}
 
-		private void DoSomething2(Mat imgThresh)
+		private VectorOfVectorOfPoint DoSomething2(Mat imgThresh)
 		{
 			var structuringElement3x3 =
 				CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
@@ -129,6 +131,48 @@ namespace ImageSubtraction
 			var imgContours = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
 			CvInvoke.DrawContours(imgContours, contours, -1, SCALAR_WHITE, -1);
 			CvInvoke.Imshow("imgContours", imgContours);
+			return contours;
+		}
+
+		private void DoSomething3(VectorOfVectorOfPoint contours, Mat imgThresh, Mat imgFrame2)
+		{
+			var convexHulls = new VectorOfVectorOfPoint(contours.Size);
+			for (int i = 0; i < contours.Size; i++)
+			{
+				CvInvoke.ConvexHull(contours[i], convexHulls[i]);
+			}
+			var blobs = new List<Blob>();
+			for (int i = 0; i < convexHulls.Size; i++)
+			{
+				var possibleBlob = new Blob(convexHulls[i]);
+				if (possibleBlob.intRectArea > 100 &&
+					possibleBlob.dblAspectRatio >= 0.2 &&
+					possibleBlob.dblAspectRatio <= 1.2 &&
+					possibleBlob.boundingRect.Width > 15 &&
+					possibleBlob.boundingRect.Height > 20 &&
+					possibleBlob.dblDiagonalSize > 30.0)
+				{
+					blobs.Add(possibleBlob);
+				}
+			}
+
+			var imgConvexHulls = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
+			// re-instiantate contours since contours.Clear() does not seem to work as expected
+			convexHulls = new VectorOfVectorOfPoint();
+			blobs.ForEach(blob => convexHulls.Push(blob.contour));
+			CvInvoke.DrawContours(imgConvexHulls, convexHulls, -1, SCALAR_WHITE, -1);
+			CvInvoke.Imshow("imgConvexHulls", imgConvexHulls);
+
+			// get another copy of frame 2 since we changed the previous frame 2 copy in the processing above
+			var imgFrame2Copy = imgFrame2.Clone();
+			blobs.ForEach(blob =>
+			{
+				// draw a red box around the blob
+				CvInvoke.Rectangle(imgFrame2Copy, blob.boundingRect, SCALAR_RED, 2);
+				// draw a filled-in green circle at the center
+				CvInvoke.Circle(imgFrame2Copy, blob.centerPosition, 3, SCALAR_GREEN, -1);
+			});
+			imageBox1.Image = imgFrame2Copy;
 		}
 	}
 }
