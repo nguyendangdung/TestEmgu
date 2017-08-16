@@ -145,12 +145,12 @@ namespace ImageSubtraction
 			for (int i = 0; i < convexHulls.Size; i++)
 			{
 				var possibleBlob = new Blob(convexHulls[i]);
-				if (possibleBlob.intRectArea > 100 &&
-					possibleBlob.dblAspectRatio >= 0.2 &&
-					possibleBlob.dblAspectRatio <= 1.2 &&
-					possibleBlob.boundingRect.Width > 15 &&
-					possibleBlob.boundingRect.Height > 20 &&
-					possibleBlob.dblDiagonalSize > 30.0)
+				if (possibleBlob.RectArea > 100 &&
+					possibleBlob.AspectRatio >= 0.2 &&
+					possibleBlob.AspectRatio <= 1.2 &&
+					possibleBlob.BoundingRect.Width > 15 &&
+					possibleBlob.BoundingRect.Height > 20 &&
+					possibleBlob.DiagonalSize > 30.0)
 				{
 					blobs.Add(possibleBlob);
 				}
@@ -159,7 +159,7 @@ namespace ImageSubtraction
 			var imgConvexHulls = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
 			// re-instiantate contours since contours.Clear() does not seem to work as expected
 			convexHulls = new VectorOfVectorOfPoint();
-			blobs.ForEach(blob => convexHulls.Push(blob.contour));
+			blobs.ForEach(blob => convexHulls.Push(blob.Contour));
 			CvInvoke.DrawContours(imgConvexHulls, convexHulls, -1, SCALAR_WHITE, -1);
 			CvInvoke.Imshow("imgConvexHulls", imgConvexHulls);
 
@@ -168,9 +168,9 @@ namespace ImageSubtraction
 			blobs.ForEach(blob =>
 			{
 				// draw a red box around the blob
-				CvInvoke.Rectangle(imgFrame2Copy, blob.boundingRect, SCALAR_RED, 2);
+				CvInvoke.Rectangle(imgFrame2Copy, blob.BoundingRect, SCALAR_RED, 2);
 				// draw a filled-in green circle at the center
-				CvInvoke.Circle(imgFrame2Copy, blob.centerPosition, 3, SCALAR_GREEN, -1);
+				CvInvoke.Circle(imgFrame2Copy, blob.CenterPosition, 3, SCALAR_GREEN, -1);
 			});
 			imageBox1.Image = imgFrame2Copy;
 		}
@@ -244,7 +244,7 @@ namespace ImageSubtraction
 				{
 					Blob possibleBlob = new Blob(convexHulls[i]);
 
-					if ((possibleBlob.intRectArea > 100 & possibleBlob.dblAspectRatio >= 0.2 & possibleBlob.dblAspectRatio <= 1.2 & possibleBlob.boundingRect.Width > 15 & possibleBlob.boundingRect.Height > 20 & possibleBlob.dblDiagonalSize > 30.0))
+					if ((possibleBlob.RectArea > 100 & possibleBlob.AspectRatio >= 0.2 & possibleBlob.AspectRatio <= 1.2 & possibleBlob.BoundingRect.Width > 15 & possibleBlob.BoundingRect.Height > 20 & possibleBlob.DiagonalSize > 30.0))
 					{
 						blobs.Add(possibleBlob);
 					}
@@ -258,7 +258,7 @@ namespace ImageSubtraction
 
 				foreach (Blob blob in blobs)
 				{
-					convexHulls.Push(blob.contour);
+					convexHulls.Push(blob.Contour);
 				}
 
 				CvInvoke.DrawContours(imgConvexHulls, convexHulls, -1, SCALAR_WHITE, -1);
@@ -271,9 +271,9 @@ namespace ImageSubtraction
 				//for each blob
 				foreach (Blob blob in blobs)
 				{
-					CvInvoke.Rectangle(imgFrame2Copy, blob.boundingRect, SCALAR_RED, 2);
+					CvInvoke.Rectangle(imgFrame2Copy, blob.BoundingRect, SCALAR_RED, 2);
 					//draw a red box around the blob
-					CvInvoke.Circle(imgFrame2Copy, blob.centerPosition, 3, SCALAR_GREEN, -1);
+					CvInvoke.Circle(imgFrame2Copy, blob.CenterPosition, 3, SCALAR_GREEN, -1);
 					//draw a filled-in green circle at the center
 				}
 

@@ -98,12 +98,12 @@ namespace ImageSubtraction
 			for (int i = 0; i < convexHulls.Size; i++)
 			{
 				var possibleBlob = new Blob(convexHulls[i]);
-				if (possibleBlob.intRectArea > 100 &&
-					possibleBlob.dblAspectRatio >= 0.2 &&
-					possibleBlob.dblAspectRatio <= 1.2 &&
-					possibleBlob.boundingRect.Width > 15 &&
-					possibleBlob.boundingRect.Height > 20 &&
-					possibleBlob.dblDiagonalSize > 30.0)
+				if (possibleBlob.RectArea > 100 &&
+					possibleBlob.AspectRatio >= 0.2 &&
+					possibleBlob.AspectRatio <= 1.2 &&
+					possibleBlob.BoundingRect.Width > 15 &&
+					possibleBlob.BoundingRect.Height > 20 &&
+					possibleBlob.DiagonalSize > 30.0)
 				{
 					blobs.Add(possibleBlob);
 				}
@@ -111,7 +111,7 @@ namespace ImageSubtraction
 
 			var convexHullsResultImg = new Mat(segmentationResultImg.Size, DepthType.Cv8U, 3);
 			convexHulls = new VectorOfVectorOfPoint();
-			blobs.ForEach(blob => convexHulls.Push(blob.contour));
+			blobs.ForEach(blob => convexHulls.Push(blob.Contour));
 			CvInvoke.DrawContours(convexHullsResultImg, convexHulls, -1, SCALAR_WHITE, -1);
 			imageBox1.Image = convexHullsResultImg;
 
