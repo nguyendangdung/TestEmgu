@@ -107,6 +107,33 @@ namespace MultipleObjectTracking
 
 
 			imageBox1.Image = imgFrame2Copy;
+
+
+			currentFrameBlobs.Clear();
+
+			imgFrame1 = imgFrame2.Clone();
+			//move frame 1 up to where frame 2 is
+
+			//if there is at least one more frame
+			if ((capVideo.GetCaptureProperty(CapProp.PosFrames) + 1 < capVideo.GetCaptureProperty(CapProp.FrameCount)))
+			{
+				imgFrame2 = capVideo.QueryFrame();
+				//get the next frame
+				//else if there is not at least one more frame
+			}
+			else
+			{
+				MessageBox.Show("end of video");
+				//txtInfo.AppendText("end of video");
+				//show end of video message
+				return; // TODO: might not be correct. Was : Exit While
+				//and jump out of while loop
+			}
+
+			blnFirstFrame = false;
+
+			Application.DoEvents();
+
 		}
 
 		private void Form3_Load(object sender, EventArgs e)
