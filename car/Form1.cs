@@ -39,7 +39,7 @@ namespace car
 		private int horizontalLinePosition;
 
 
-		private int carCount = 0;
+		private int CarCount;
 
 		public Form1()
 		{
@@ -120,8 +120,8 @@ namespace car
 			imgFrame2Copy = imgFrame2.Clone();
 
 			drawBlobInfoOnImage(blobs, imgFrame2Copy);
-
-			var atLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(blobs, horizontalLinePosition, carCount);
+			
+			var atLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(blobs, horizontalLinePosition, ref CarCount);
 
 			if ((atLeastOneBlobCrossedTheLine))
 			{
@@ -132,7 +132,7 @@ namespace car
 				CvInvoke.Line(imgFrame2Copy, crossingLine[0], crossingLine[1], SCALAR_RED, 2);
 			}
 
-			drawCarCountOnImage(carCount, imgFrame2Copy);
+			drawCarCountOnImage(CarCount, imgFrame2Copy);
 
 			imageBox1.Image = imgFrame2Copy;
 
@@ -312,7 +312,7 @@ namespace car
 		}
 
 
-		public bool checkIfBlobsCrossedTheLine(List<Blob> blobs, int horizontalLinePosition, int carCount)
+		public bool checkIfBlobsCrossedTheLine(List<Blob> blobs, int horizontalLinePosition, ref int carCount)
 		{
 
 			bool atLeastOneBlobCrossedTheLine = false;
