@@ -27,7 +27,7 @@ namespace ImageSubtraction
 		private MCvScalar SCALAR_RED = new MCvScalar(0.0, 0.0, 255.0);
 
 
-		private VideoCapture capVideo;
+		private VideoCapture capVideo = new VideoCapture(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\768x576.avi");
 
 
 		private bool blnFormClosing;
@@ -309,8 +309,12 @@ namespace ImageSubtraction
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			capVideo = new VideoCapture(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\768x576.avi");
-			detectBlobsAndUpdateGui2();
+			var imgFrame1 = capVideo.QueryFrame();
+			var imgFrame2 = capVideo.QueryFrame();
+			CvInvoke.CvtColor(imgFrame1, imgFrame1, ColorConversion.Bgr2Gray);
+			CvInvoke.GaussianBlur(imgFrame1, imgFrame1, new Size(5, 5), 0);
+			imageBox1.Image = imgFrame1;
+			Application.DoEvents();
 		}
 	}
 }
