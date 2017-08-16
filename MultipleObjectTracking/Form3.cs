@@ -50,16 +50,12 @@ namespace MultipleObjectTracking
 			CvInvoke.AbsDiff(imgFrame1Copy, imgFrame2Copy, imgDifference);
 			CvInvoke.Threshold(imgDifference, imgThresh, 30, 255.0, ThresholdType.Binary);
 
-			var structuringElement5x5 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
-
-
-			CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default,
+			var structuringElement5X5 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
+			CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
-
-			CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default,
+			CvInvoke.Dilate(imgThresh, imgThresh, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
-
-			CvInvoke.Erode(imgThresh, imgThresh, structuringElement5x5, new Point(-1, -1), 1, BorderType.Default,
+			CvInvoke.Erode(imgThresh, imgThresh, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
 			var imgThreshCopy = imgThresh.Clone();
 			var contours = new VectorOfVectorOfPoint();
@@ -67,12 +63,12 @@ namespace MultipleObjectTracking
 
 			var convexHulls = new VectorOfVectorOfPoint(contours.Size);
 
-			for (int j = 0; j < contours.Size; j++)
+			for (var i = 0; i < contours.Size; i++)
 			{
-				CvInvoke.ConvexHull(contours[j], convexHulls[j]);
+				CvInvoke.ConvexHull(contours[i], convexHulls[i]);
 			}
 
-			for (int i = 0; i < convexHulls.Size; i++)
+			for (var i = 0; i < convexHulls.Size; i++)
 			{
 				var possibleBlob = new Blob(convexHulls[i]);
 				var c = possibleBlob.CurrentRectArea > 100 &&
@@ -90,7 +86,7 @@ namespace MultipleObjectTracking
 
 			if (blnFirstFrame)
 			{
-				foreach (Blob currentFrameBlob in currentFrameBlobs)
+				foreach (var currentFrameBlob in currentFrameBlobs)
 				{
 					blobs.Add(currentFrameBlob);
 				}
@@ -155,25 +151,25 @@ namespace MultipleObjectTracking
 
 		public void matchCurrentFrameBlobsToExistingBlobs(List<Blob> existingBlobs, List<Blob> currentFrameBlobs)
 		{
-			foreach (Blob existingBlob in existingBlobs)
+			foreach (var existingBlob in existingBlobs)
 			{
 				existingBlob.CurrentMatchFoundOrNewBlob = false;
 				existingBlob.PredictNextPosition();
 			}
 
 
-			foreach (Blob currentFrameBlob in currentFrameBlobs)
+			foreach (var currentFrameBlob in currentFrameBlobs)
 			{
-				int intIndexOfLeastDistance = 0;
-				double dblLeastDistance = 1000000.0;
+				var intIndexOfLeastDistance = 0;
+				var dblLeastDistance = 1000000.0;
 
 
-				for (int i = 0; i <= existingBlobs.Count() - 1; i++)
+				for (var i = 0; i <= existingBlobs.Count() - 1; i++)
 				{
 
 					if (existingBlobs[i].StillBeingTracked)
 					{
-						double dblDistance = distanceBetweenPoints(currentFrameBlob.CenterPositions.Last(), existingBlobs[i].PredictedNextPosition);
+						var dblDistance = distanceBetweenPoints(currentFrameBlob.CenterPositions.Last(), existingBlobs[i].PredictedNextPosition);
 
 						if ((dblDistance < dblLeastDistance))
 						{
@@ -197,7 +193,7 @@ namespace MultipleObjectTracking
 			}
 
 
-			foreach (Blob existingBlob in existingBlobs)
+			foreach (var existingBlob in existingBlobs)
 			{
 				if ((existingBlob.CurrentMatchFoundOrNewBlob == false))
 				{
@@ -216,8 +212,8 @@ namespace MultipleObjectTracking
 
 		public double distanceBetweenPoints(Point point1, Point point2)
 		{
-			int intX = Math.Abs(point1.X - point2.X);
-			int intY = Math.Abs(point1.Y - point2.Y);
+			var intX = Math.Abs(point1.X - point2.X);
+			var intY = Math.Abs(point1.Y - point2.Y);
 			return Math.Sqrt((Math.Pow(intX, 2)) + (Math.Pow(intY, 2)));
 		}
 
@@ -252,16 +248,16 @@ namespace MultipleObjectTracking
 		public void drawBlobInfoOnImage(List<Blob> blobs, Mat imgFrame2Copy)
 		{
 
-			for (int i = 0; i <= blobs.Count - 1; i++)
+			for (var i = 0; i <= blobs.Count - 1; i++)
 			{
 
 				if ((blobs[i].StillBeingTracked == true))
 				{
 					CvInvoke.Rectangle(imgFrame2Copy, blobs[i].CurrentBoundingRect, SCALAR_RED, 2);
 
-					FontFace fontFace = FontFace.HersheySimplex;
-					double dblFontScale = blobs[i].CurrentDiagonalSize / 60.0;
-					int intFontThickness = Convert.ToInt32(Math.Round(dblFontScale * 1.0));
+					var fontFace = FontFace.HersheySimplex;
+					var dblFontScale = blobs[i].CurrentDiagonalSize / 60.0;
+					var intFontThickness = Convert.ToInt32(Math.Round(dblFontScale * 1.0));
 
 					CvInvoke.PutText(imgFrame2Copy, i.ToString(), blobs[i].CenterPositions.Last(), fontFace, dblFontScale, SCALAR_GREEN, intFontThickness);
 
