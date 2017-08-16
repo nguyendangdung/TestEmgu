@@ -51,42 +51,43 @@ namespace ImageSubtraction
 			CvInvoke.GaussianBlur(blur2, blur2, new Size(5, 5), 0);
 			imageBox2.Image = blur2;
 
-			var imgDifference = new Mat(frame1.Size, DepthType.Cv8U, 1);
-			CvInvoke.AbsDiff(blur1, blur2, imgDifference);
-			imageBox3.Image = imgDifference;
+			var subtractionResultImg = new Mat(frame1.Size, DepthType.Cv8U, 1);
+			CvInvoke.AbsDiff(blur1, blur2, subtractionResultImg);
+			imageBox3.Image = subtractionResultImg;
 
 
-			var imgThresh = new Mat(frame1.Size, DepthType.Cv8U, 1);
-			CvInvoke.Threshold(imgDifference, imgThresh, 30, 255.0, ThresholdType.Binary);
-			imageBox4.Image = imgThresh;
+			var segmentationResultImg = new Mat(frame1.Size, DepthType.Cv8U, 1);
+			CvInvoke.Threshold(subtractionResultImg, segmentationResultImg, 30, 255.0, ThresholdType.Binary);
+			imageBox4.Image = segmentationResultImg;
 
 
 
 			//////////////////////////////
-			var dd = imgThresh.Clone();
+			var dilateErodeResultImg = segmentationResultImg.Clone();
 			var structuringElement5X5 =
 				CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
-			CvInvoke.Dilate(dd, dd, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
+			CvInvoke.Dilate(dilateErodeResultImg, dilateErodeResultImg, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
 
-			CvInvoke.Dilate(dd, dd, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
+			CvInvoke.Dilate(dilateErodeResultImg, dilateErodeResultImg, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
 
-			CvInvoke.Erode(dd, dd, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
+			CvInvoke.Erode(dilateErodeResultImg, dilateErodeResultImg, structuringElement5X5, new Point(-1, -1), 1, BorderType.Default,
 				new MCvScalar(0, 0, 0));
-			imageBox5.Image = dd;
+			imageBox5.Image = dilateErodeResultImg;
 
 
 			/////////////////////////////////
-			var imgThreshCopy = dd.Clone();
+			var dilateErodeResultImgClone = dilateErodeResultImg.Clone();
 			var contours = new VectorOfVectorOfPoint();
-			CvInvoke.FindContours(imgThreshCopy, contours, null, RetrType.External, ChainApproxMethod.ChainApproxSimple);
-			var imgContours = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
-			CvInvoke.DrawContours(imgContours, contours, -1, SCALAR_WHITE, -1);
-			imageBox6.Image = imgContours;
+			CvInvoke.FindContours(dilateErodeResultImgClone, contours, null, RetrType.External, ChainApproxMethod.ChainApproxSimple);
+			var findContoursResultImg = new Mat(segmentationResultImg.Size, DepthType.Cv8U, 3);
+			CvInvoke.DrawContours(findContoursResultImg, contours, -1, SCALAR_WHITE, -1);
+			imageBox6.Image = findContoursResultImg;
 
 
 			/////////////////////////////////////
+			// Find Convex hull
 			var convexHulls = new VectorOfVectorOfPoint(contours.Size);
 			for (int i = 0; i < contours.Size; i++)
 			{
@@ -108,11 +109,11 @@ namespace ImageSubtraction
 				}
 			}
 
-			var imgConvexHulls = new Mat(imgThresh.Size, DepthType.Cv8U, 3);
+			var convexHullsResultImg = new Mat(segmentationResultImg.Size, DepthType.Cv8U, 3);
 			convexHulls = new VectorOfVectorOfPoint();
 			blobs.ForEach(blob => convexHulls.Push(blob.contour));
-			CvInvoke.DrawContours(imgConvexHulls, convexHulls, -1, SCALAR_WHITE, -1);
-			imageBox1.Image = imgConvexHulls;
+			CvInvoke.DrawContours(convexHullsResultImg, convexHulls, -1, SCALAR_WHITE, -1);
+			imageBox1.Image = convexHullsResultImg;
 
 
 			Application.DoEvents();
