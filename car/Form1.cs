@@ -104,7 +104,7 @@ namespace car
 			}
 
 
-			if ((blnFirstFrame == true))
+			if (blnFirstFrame)
 			{
 				foreach (Blob currentFrameBlob in currentFrameBlobs)
 				{
@@ -121,7 +121,7 @@ namespace car
 
 			drawBlobInfoOnImage(blobs, imgFrame2Copy);
 
-			dynamic atLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(blobs, horizontalLinePosition, carCount);
+			var atLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(blobs, horizontalLinePosition, carCount);
 
 			if ((atLeastOneBlobCrossedTheLine))
 			{
