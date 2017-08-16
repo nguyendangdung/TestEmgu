@@ -112,7 +112,7 @@ namespace MultipleObjectTracking
 		private void Form3_Load(object sender, EventArgs e)
 		{
 			capVideo = new VideoCapture(
-				@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\768x576.avi");
+				@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\CarsDrivingUnderBridge.mp4");
 			if (capVideo.GetCaptureProperty(CapProp.FrameCount) < 2)
 			{
 				MessageBox.Show("error");
