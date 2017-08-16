@@ -102,7 +102,9 @@ namespace MultipleObjectTracking
 			convexHulls = new VectorOfVectorOfPoint();
 			blobs.ForEach(blob => convexHulls.Push(blob.CurrentContour));
 			CvInvoke.DrawContours(convexHullsResultImg, convexHulls, -1, SCALAR_WHITE, -1);
-			imageBox1.Image = convexHullsResultImg;
+
+
+			//imageBox1.Image = convexHullsResultImg;
 
 			Application.DoEvents();
 		}
