@@ -36,40 +36,30 @@ namespace MultipleObjectTracking
 		private void button1_Click(object sender, EventArgs e)
 		{
 			capVideo = new VideoCapture(@"C:\Users\Administrator\Documents\Visual Studio 2015\Projects\TestEmgu\ImageSubtraction\768x576.avi");
-			//check and make sure the video has at least 2 frames
-			if ((capVideo.GetCaptureProperty(CapProp.FrameCount) < 2))
-			{
-				MessageBox.Show("error: video file must have at least two frames");
-			}
-
-			trackBlobsAndUpdateGUI();
-
+			TrackBlobsAndUpdateGui();
 		}
 
 
 
-		public void trackBlobsAndUpdateGUI()
+		public void TrackBlobsAndUpdateGui()
 		{
-			Mat imgFrame1 = default(Mat);
-			Mat imgFrame2 = default(Mat);
+			var blobs = new List<Blob>();
 
-			List<Blob> blobs = new List<Blob>();
+			var blnFirstFrame = true;
 
-			bool blnFirstFrame = true;
-
-			imgFrame1 = capVideo.QueryFrame();
-			imgFrame2 = capVideo.QueryFrame();
+			var imgFrame1 = capVideo.QueryFrame();
+			var imgFrame2 = capVideo.QueryFrame();
 
 
 			while ((blnFormClosing == false))
 			{
-				List<Blob> currentFrameBlobs = new List<Blob>();
+				var currentFrameBlobs = new List<Blob>();
 
-				Mat imgFrame1Copy = imgFrame1.Clone();
-				Mat imgFrame2Copy = imgFrame2.Clone();
+				var imgFrame1Copy = imgFrame1.Clone();
+				var imgFrame2Copy = imgFrame2.Clone();
 
-				Mat imgDifference = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
-				Mat imgThresh = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
+				var imgDifference = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
+				var imgThresh = new Mat(imgFrame1.Size, DepthType.Cv8U, 1);
 
 				CvInvoke.CvtColor(imgFrame1Copy, imgFrame1Copy, ColorConversion.Bgr2Gray);
 				CvInvoke.CvtColor(imgFrame2Copy, imgFrame2Copy, ColorConversion.Bgr2Gray);
@@ -81,7 +71,7 @@ namespace MultipleObjectTracking
 
 				CvInvoke.Threshold(imgDifference, imgThresh, 30, 255.0, ThresholdType.Binary);
 
-				CvInvoke.Imshow("imgThresh", imgThresh);
+				//CvInvoke.Imshow("imgThresh", imgThresh);
 
 				Mat structuringElement3x3 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(3, 3), new Point(-1, -1));
 				Mat structuringElement5x5 = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(5, 5), new Point(-1, -1));
