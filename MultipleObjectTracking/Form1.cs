@@ -114,7 +114,7 @@ namespace MultipleObjectTracking
 				{
 					Blob possibleBlob = new Blob(convexHulls[i]);
 
-					if ((possibleBlob.CurrentRectArea > 100 & possibleBlob.CurrentAspectRatio >= 0.2 & possibleBlob.CurrentAspectRatio <= 1.25 & possibleBlob.currentBoundingRect.Width > 20 & possibleBlob.currentBoundingRect.Height > 20 & possibleBlob.CurrentDiagonalSize > 30.0 & (CvInvoke.ContourArea(possibleBlob.currentContour) / Convert.ToDouble(possibleBlob.CurrentRectArea)) > 0.4))
+					if ((possibleBlob.CurrentRectArea > 100 & possibleBlob.CurrentAspectRatio >= 0.2 & possibleBlob.CurrentAspectRatio <= 1.25 & possibleBlob.CurrentBoundingRect.Width > 20 & possibleBlob.CurrentBoundingRect.Height > 20 & possibleBlob.CurrentDiagonalSize > 30.0 & (CvInvoke.ContourArea(possibleBlob.CurrentContour) / Convert.ToDouble(possibleBlob.CurrentRectArea)) > 0.4))
 					{
 						currentFrameBlobs.Add(possibleBlob);
 					}
@@ -200,7 +200,7 @@ namespace MultipleObjectTracking
 			{
 				if ((blob.StillBeingTracked == true))
 				{
-					contours.Push(blob.currentContour);
+					contours.Push(blob.CurrentContour);
 				}
 			}
 
