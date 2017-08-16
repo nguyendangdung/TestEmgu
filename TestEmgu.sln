@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mouse", "mouse\mouse.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleObjectTracking", "MultipleObjectTracking\MultipleObjectTracking.csproj", "{49AB2FF4-3AC7-4AB6-8526-209620D580CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "car", "car\car.csproj", "{2DDE11B0-8916-4356-AAC1-AFE109297FA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{49AB2FF4-3AC7-4AB6-8526-209620D580CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49AB2FF4-3AC7-4AB6-8526-209620D580CA}.Release|x64.ActiveCfg = Release|Any CPU
 		{49AB2FF4-3AC7-4AB6-8526-209620D580CA}.Release|x64.Build.0 = Release|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Debug|x64.Build.0 = Debug|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|x64.ActiveCfg = Release|Any CPU
+		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
