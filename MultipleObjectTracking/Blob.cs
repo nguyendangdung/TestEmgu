@@ -23,9 +23,7 @@ namespace MultipleObjectTracking
 		public Blob(VectorOfPoint contour)
 		{
 			CurrentContour = contour;
-
 			CurrentBoundingRect = CvInvoke.BoundingRectangle(CurrentContour);
-
 			var currentCenter = new Point
 			{
 				X = Convert.ToInt32(Convert.ToDouble(CurrentBoundingRect.X + CurrentBoundingRect.X + CurrentBoundingRect.Width) /
