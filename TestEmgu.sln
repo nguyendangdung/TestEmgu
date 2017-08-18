@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleObjectTracking", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "car", "car\car.csproj", "{2DDE11B0-8916-4356-AAC1-AFE109297FA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cam_counting", "cam_counting\cam_counting.csproj", "{E67D544E-CDE6-478C-B562-AE64D2A01CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cam_counting_test", "Test\cam_counting_test.csproj", "{E3F540E0-D0A2-4C49-898A-44232D7C82F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,22 @@ Global
 		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|x64.ActiveCfg = Release|Any CPU
 		{2DDE11B0-8916-4356-AAC1-AFE109297FA0}.Release|x64.Build.0 = Release|Any CPU
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Debug|x64.ActiveCfg = Debug|x64
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Debug|x64.Build.0 = Debug|x64
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Release|x64.ActiveCfg = Release|x64
+		{E67D544E-CDE6-478C-B562-AE64D2A01CDE}.Release|x64.Build.0 = Release|x64
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Debug|x64.Build.0 = Debug|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Release|x64.ActiveCfg = Release|Any CPU
+		{E3F540E0-D0A2-4C49-898A-44232D7C82F7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
