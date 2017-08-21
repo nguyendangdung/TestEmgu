@@ -11,6 +11,7 @@ namespace cam_counting
 {
     public class CountingService : ICountingService, IDisposable
     {
+	    private bool _isSetup = false;
         private bool _isFirstPush = true;
         public EventHandler Increment { get; set; }
         public EventHandler Decrement { get; set; }
@@ -20,9 +21,10 @@ namespace cam_counting
         public void PushFrame(Mat mat)
         {
             if (mat == null) throw new ArgumentNullException("mat");
+	        if (!_isSetup) throw new Exception();
 
-            //Cho size nhỏ lại để tăng tốc độ apply filter
-            CvInvoke.Resize(mat, _temp, new Size(400, 300));
+			//Cho size nhỏ lại để tăng tốc độ apply filter
+			CvInvoke.Resize(mat, _temp, new Size(400, 300));
             CvInvoke.CvtColor(_temp, _temp, ColorConversion.Bgr2Gray);
             CvInvoke.GaussianBlur(_temp, _temp, new Size(5, 5), 0);
             _theSecondOriginal = _temp.Clone();
@@ -41,7 +43,7 @@ namespace cam_counting
 
 	    public void Setup(Poligon poligon, Line line)
 	    {
-		    throw new NotImplementedException();
+		    _isSetup = true;
 	    }
 
 	    private void ProcessCouting()
