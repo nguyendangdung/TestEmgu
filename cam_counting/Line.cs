@@ -5,20 +5,20 @@ using System.Windows;
 
 namespace cam_counting
 {
-	public class IntegerPoint
-	{
-		public int X { get; }
-		public int Y { get; }
+	//public class IntegerPoint
+	//{
+	//	public int X { get; }
+	//	public int Y { get; }
 
-		public Point Point { get; }
+	//	public Point Point { get; }
 
-		public IntegerPoint(int x, int y)
-		{
-			X = x;
-			Y = y;
-			Point = new Point(X, Y);
-		}
-	}
+	//	public IntegerPoint(int x, int y)
+	//	{
+	//		X = x;
+	//		Y = y;
+	//		Point = new Point(X, Y);
+	//	}
+	//}
 	public enum PointLineEvaluateResult
 	{
 		Positive,
@@ -28,10 +28,10 @@ namespace cam_counting
 
 	public class Line
 	{
-		public IntegerPoint First { get; }
-		public IntegerPoint Second { get; }
+		public Point First { get; }
+		public Point Second { get; }
 
-		public Line(IntegerPoint first, IntegerPoint second)
+		public Line(Point first, Point second)
 		{
 			First = first;
 			Second = second;
@@ -48,14 +48,14 @@ namespace cam_counting
 			C = -(A * first.X + B * first.Y);
 		}
 
-		public int A { get; }
-		public int B { get; }
-		public int C { get; }
+		public double A { get; }
+		public double B { get; }
+		public double C { get; }
 
-		public PointLineEvaluateResult PointEvaluate(IntegerPoint point)
+		public PointLineEvaluateResult PointEvaluate(Point point)
 		{
 			var result = A * point.X + B * point.Y + C;
-			if (result == 0)
+			if ((int)result == 0)
 			{
 				return PointLineEvaluateResult.Zero;
 			}
@@ -67,21 +67,27 @@ namespace cam_counting
 		}
 	}
 
-	public class Poligon
+	public class Poligon : List<Point>
 	{
-		public List<IntegerPoint> Points { get; }
-
-		public Poligon(List<IntegerPoint> points)
+		public Poligon(List<Point> points)
 		{
+			// check number of vertices
 			if (points.Count < 3)
 			{
 				throw new Exception();
 			}
-			Points = points;
+			AddRange(points);
 
-			// validate
-			var gr = points.GroupBy(s => new {s.X, s.Y});
+			// validate duplication vertices
+			var gr = this.GroupBy(s => new {s.X, s.Y});
 			if (gr.Any(s => s.Count() > 1))
+			{
+				throw new Exception();
+			}
+
+			// check simple/complex poligon
+			var simplePoligon = true;
+			if (!simplePoligon)
 			{
 				throw new Exception();
 			}
