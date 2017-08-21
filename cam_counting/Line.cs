@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace cam_counting
@@ -72,10 +73,18 @@ namespace cam_counting
 
 		public Poligon(List<IntegerPoint> points)
 		{
+			if (points.Count < 3)
+			{
+				throw new Exception();
+			}
 			Points = points;
 
 			// validate
-
+			var gr = points.GroupBy(s => new {s.X, s.Y});
+			if (gr.Any(s => s.Count() > 1))
+			{
+				throw new Exception();
+			}
 		}
 	}
 }
