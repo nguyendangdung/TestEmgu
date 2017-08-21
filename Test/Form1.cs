@@ -15,9 +15,11 @@ namespace Test
 {
     public partial class Form1 : Form
     {
+	    private int _frameCount;
         private int _count;
 	    readonly Mat _frame = new Mat();
 	    CountingService _countingService;
+	    private VideoCapture videoCapture = new VideoCapture(@"cars.mp4");
 		public Form1()
         {
             InitializeComponent();
@@ -47,9 +49,7 @@ namespace Test
             _countingService = new CountingService();
             _countingService.Increment += Increment;
             _countingService.Decrement += Decrement;
-
-            var videoCapture = new VideoCapture(@"cars.mp4");
-            videoCapture.ImageGrabbed += ImageGrabbed;
+			videoCapture.ImageGrabbed += ImageGrabbed;
 			videoCapture.Start();
         }
 
@@ -58,6 +58,11 @@ namespace Test
 			((VideoCapture)sender).Retrieve(_frame, 0);
 			imageBox1.Image = _frame;
 			_countingService.PushFrame(_frame);
-		}
+
+		    _frameCount++;
+		    if (_frameCount != (int) videoCapture.GetCaptureProperty(CapProp.FrameCount)) return;
+		    _frameCount = 0;
+		    videoCapture.SetCaptureProperty(CapProp.PosFrames, 0);
+	    }
 	}
 }
