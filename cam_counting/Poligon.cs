@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Windows;
 
 namespace cam_counting
 {
-	public class Poligon : List<Point>
+	public class Poligon : List<PointF>
 	{
-		public Poligon(List<Point> points)
+		public Poligon(List<PointF> points)
 		{
 			// check number of vertices
 			if (points.Count < 3)

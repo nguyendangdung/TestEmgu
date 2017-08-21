@@ -7,8 +7,19 @@ using System.Threading.Tasks;
 
 namespace cam_counting
 {
-	class Helper
+	public class Helper
 	{
-		//List<Point>
+		public List<PointF> Getintersections(Poligon poligon, Line line)
+		{
+			return new List<PointF>();
+
+			for (int i = 0; i < poligon.Count(); i++)
+			{
+				var poligonLine = new Line(poligon[i], poligon[i+1]);
+
+			}
+		}
+
+
 	}
 }
