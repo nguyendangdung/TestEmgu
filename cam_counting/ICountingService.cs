@@ -8,5 +8,7 @@ namespace cam_counting
 		EventHandler Increment { get; set; }
 		EventHandler Decrement { get; set; }
 		void PushFrame(Mat mat);
+
+		void Setup(Poligon poligon, Line line);
 	}
 }

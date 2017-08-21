@@ -39,7 +39,12 @@ namespace cam_counting
 			
         }
 
-        private void ProcessCouting()
+	    public void Setup(Poligon poligon, Line line)
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    private void ProcessCouting()
         {
             using (var result = new Mat(_theFirstOriginal.Size, DepthType.Cv8U, 1))
             {
