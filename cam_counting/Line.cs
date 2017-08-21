@@ -1,9 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using Point = System.Drawing.Point;
 
 namespace cam_counting
 {
+	public class IntegerPoint
+	{
+		public int X { get; }
+		public int Y { get; }
+
+		public Point Point { get; }
+
+		public IntegerPoint(int x, int y)
+		{
+			X = x;
+			Y = y;
+			Point = new Point(X, Y);
+		}
+	}
 	public enum PointLineEvaluateResult
 	{
 		Positive,
@@ -13,11 +27,10 @@ namespace cam_counting
 
 	public class Line
 	{
+		public IntegerPoint First { get; }
+		public IntegerPoint Second { get; }
 
-		public Point First { get; }
-		public Point Second { get; }
-
-		public Line(Point first, Point second)
+		public Line(IntegerPoint first, IntegerPoint second)
 		{
 			First = first;
 			Second = second;
@@ -38,7 +51,7 @@ namespace cam_counting
 		public int B { get; }
 		public int C { get; }
 
-		public PointLineEvaluateResult PointEvaluate(Point point)
+		public PointLineEvaluateResult PointEvaluate(IntegerPoint point)
 		{
 			var result = A * point.X + B * point.Y + C;
 			if (result == 0)
@@ -50,6 +63,19 @@ namespace cam_counting
 				return PointLineEvaluateResult.Positive;
 			}
 			return PointLineEvaluateResult.Negative;
+		}
+	}
+
+	public class Poligon
+	{
+		public List<IntegerPoint> Points { get; }
+
+		public Poligon(List<IntegerPoint> points)
+		{
+			Points = points;
+
+			// validate
+
 		}
 	}
 }
