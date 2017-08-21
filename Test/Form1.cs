@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using cam_counting;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using OneVision.View.UI.UserControls.LiveView;
 
 namespace Test
 {
@@ -51,7 +52,24 @@ namespace Test
             _countingService.Decrement += Decrement;
 			videoCapture.ImageGrabbed += ImageGrabbed;
 			videoCapture.Start();
-        }
+
+	        PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
+			a.SetPolygon(imageBox1.Size, new List<PointF>()
+			{
+				new PointF(50, 300),
+				new PointF(800, 300),
+				new PointF(600, 50),
+				new PointF(50, 20),
+				new PointF(10, 150),
+			});
+			LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
+			l.SetPolygon(imageBox1.Size, new List<PointF>()
+			{
+				new PointF(20, 70),
+				new PointF(800, 280),
+			});
+
+		}
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
