@@ -9,55 +9,55 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using cam_counting;
 using Emgu.CV;
+using Emgu.CV.CvEnum;
 
 namespace Test
 {
-	public partial class Form1 : Form
-	{
-		private readonly ICountingService _countingService;
-		private VideoCapture _videoCapture;
-		private int _count = 0;
+    public partial class Form1 : Form
+    {
+        private int _count;
+	    readonly Mat _frame = new Mat();
+	    CountingService _countingService;
 		public Form1()
-		{
-			InitializeComponent();
-			_countingService = new CountingService();
-			_countingService.Increment += Increment;
-			_countingService.Decrement += Decrement;
-		}
+        {
+            InitializeComponent();
+        }
 
-		private void Decrement(object sender, EventArgs eventArgs)
-		{
-			
-		}
+        private void Decrement(object sender, EventArgs eventArgs)
+        {
 
-		private void Increment(object sender, EventArgs eventArgs)
-		{
-			_count++;
-			label1.Text = _count.ToString();
-		}
+        }
 
-		private void Form1_Load(object sender, EventArgs e)
-		{
-			_videoCapture = new VideoCapture(@"cars.mp4");
-		}
+        private void Increment(object sender, EventArgs eventArgs)
+        {
+            _count++;
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-			while (true)
-			{
-				var frame = _videoCapture.QueryFrame();
+            label1.Invoke((MethodInvoker)delegate
+            {
+                try
+                {
+                    label1.Text = _count.ToString();
+                }
+                catch { }
+            });
+        }
 
-				if (frame != null)
-				{
-					imageBox1.Image = frame;
-					_countingService.PushFrame(frame);
-				}
-				else
-				{
-					break;
-				}
-				Application.DoEvents();
-			}
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _countingService = new CountingService();
+            _countingService.Increment += Increment;
+            _countingService.Decrement += Decrement;
+
+            var videoCapture = new VideoCapture(@"cars.mp4");
+            videoCapture.ImageGrabbed += ImageGrabbed;
+			videoCapture.Start();
+        }
+
+	    private void ImageGrabbed(object sender, EventArgs e)
+	    {
+			((VideoCapture)sender).Retrieve(_frame, 0);
+			imageBox1.Image = _frame;
+			_countingService.PushFrame(_frame);
 		}
 	}
 }

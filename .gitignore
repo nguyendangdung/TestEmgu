@@ -240,3 +240,11 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Test/cars.mp4
+/Test/cars1.mp4
+/cam_counting/concrt140.dll
+/cam_counting/cvextern.dll
+/cam_counting/msvcp140.dll
+/cam_counting/opencv_ffmpeg320_64.dll
+/cam_counting/vcruntime140.dll
+/Test/cars.mp4

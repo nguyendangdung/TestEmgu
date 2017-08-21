@@ -7,7 +7,7 @@ using Emgu.CV.Util;
 
 namespace cam_counting
 {
-	class Blob
+	internal class Blob : IDisposable
 	{
 		public VectorOfPoint CurrentContour;
 		public Rectangle CurrentBoundingRect;
@@ -116,5 +116,16 @@ namespace cam_counting
 			}
 		}
 
+		public void Dispose()
+		{
+		    if (CurrentContour != null)
+		    {
+		        CurrentContour.Dispose();    
+		    }
+			
+			CenterPositions.Clear();
+			CurrentBoundingRect = Rectangle.Empty;
+			PredictedNextPosition = Point.Empty;
+		}
 	}
 }
