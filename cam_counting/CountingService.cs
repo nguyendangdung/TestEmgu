@@ -234,30 +234,33 @@ namespace cam_counting
 					var currentPoint = blob.CenterPositions[currFrameIndex];
 					var prevPoint = blob.CenterPositions[prevFrameIndex];
 
-					if (_line.PointEvaluate(currentPoint) * _line.PointEvaluate(prevPoint) < 0)
+					var a = _line.PointEvaluate(currentPoint);
+					var b = _line.PointEvaluate(prevPoint);
+
+					if (a * b < 0)
 					{
 						atLeastOneBlobCrossedTheLine = true;
-						if (Increment != null)
+						//if (Increment != null)
+						//{
+						//	Increment.Invoke(this, null);
+						//}
+						var vector = new Vector(currentPoint.X - prevPoint.X, currentPoint.Y - prevPoint.Y);
+						if (_inCheck != 0 && Vector.Multiply(vector, _line.Vector) * _inCheck > 0)
 						{
-							Increment.Invoke(this, null);
+							intCount = intCount + 1;
+							if (Increment != null)
+							{
+								Increment.Invoke(this, null);
+							}
 						}
-						//var vector = new Vector(currentPoint.X - prevPoint.X, currentPoint.Y - prevPoint.Y);
-						//if (_inCheck != 0 && Vector.Multiply(vector, _line.Vector) * _inCheck > 0)
-						//{
-						//	intCount = intCount + 1;
-						//	if (Increment != null)
-						//	{
-						//		Increment.Invoke(this, null);
-						//	}
-						//}
-						//if (_outCheck != 0 && Vector.Multiply(vector, _line.Vector) * _outCheck > 0)
-						//{
-						//	outCount = outCount + 1;
-						//	if (Decrement != null)
-						//	{
-						//		Decrement.Invoke(this, null);
-						//	}
-						//}
+						if (_outCheck != 0 && Vector.Multiply(vector, _line.Vector) * _outCheck > 0)
+						{
+							outCount = outCount + 1;
+							if (Decrement != null)
+							{
+								Decrement.Invoke(this, null);
+							}
+						}
 					}
 				}
 			}

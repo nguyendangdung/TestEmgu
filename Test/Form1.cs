@@ -19,8 +19,9 @@ namespace Test
     public partial class Form1 : Form
     {
 	    private int _frameCount;
-        private int _count;
-	    readonly Mat _frame = new Mat();
+        private int _inCount;
+	    private int _outCount;
+		readonly Mat _frame = new Mat();
 	    CountingService _countingService;
 	    private VideoCapture videoCapture = new VideoCapture(@"cars.mp4");
 	    private readonly MCvScalar _scalarRed = new MCvScalar(0.0, 0.0, 255.0);
@@ -31,33 +32,40 @@ namespace Test
 
         private void Decrement(object sender, EventArgs eventArgs)
         {
-
-        }
+	        _outCount++;
+	        outLabel.Invoke((MethodInvoker)delegate
+	        {
+		        try
+		        {
+			        outLabel.Text = _outCount.ToString();
+		        }
+		        catch { }
+	        });
+		}
 
         private void Increment(object sender, EventArgs eventArgs)
         {
-            _count++;
-
-            label1.Invoke((MethodInvoker)delegate
-            {
-                try
-                {
-                    label1.Text = _count.ToString();
-                }
-                catch { }
-            });
+	        
+	        _inCount++;
+			inLabel.Invoke((MethodInvoker)delegate
+	        {
+		        try
+		        {
+			        inLabel.Text = _inCount.ToString();
+		        }
+		        catch { }
+	        });
+			
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-			
-
 			PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
 			a.SetPolygon(imageBox1.Size, new List<PointF>()
 			{
-				new PointF(50, 600),
-				new PointF(1200, 600),
+				new PointF(50, 300),
+				new PointF(1200, 300),
+				//new PointF(600, 200),
 				new PointF(800, 50),
 				new PointF(50, 20),
 				new PointF(10, 150),
@@ -76,12 +84,12 @@ namespace Test
 		        new PointF(100, 280),
 	        });
 
-			var outDirection = new List<PointF>()
+			var inDirection = new List<PointF>()
 			{
 				new PointF(100, 70),
 				new PointF(100, 280),
 			};
-	        var inDirection = new List<PointF>()
+	        var outDirection = new List<PointF>()
 	        {
 		        new PointF(100, 280),
 		        new PointF(100, 70)
@@ -97,7 +105,7 @@ namespace Test
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
-			Thread.Sleep(100);
+			//Thread.Sleep(100);
 			((VideoCapture)sender).Retrieve(_frame);
 		    //CvInvoke.Resize(_frame, _frame, new Size(400, 300));
 			var rec = _countingService.PushFrame(_frame);
