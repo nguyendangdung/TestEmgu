@@ -27,7 +27,6 @@ namespace cam_counting
 			CvInvoke.CvtColor(mat, _temp, ColorConversion.Bgr2Gray);
 			CvInvoke.GaussianBlur(_temp, _temp, new Size(5, 5), 0);
 			_theSecondOriginal = _temp.Clone();
-			_horizontalLinePosition = (int)Math.Round(mat.Rows * 0.35);
 			if (_isFirstPush)
 			{
 				_theFirstOriginal = _theSecondOriginal;
@@ -45,13 +44,23 @@ namespace cam_counting
 			List<PointF> inDirection, 
 			List<PointF> outDirection)
 		{
-			_inDirection = new Vector(inDirection[0].X - inDirection[1].X, inDirection[0].Y - inDirection[1].Y);
-			_outDirection = new Vector(outDirection[0].X - outDirection[1].X, outDirection[0].Y - outDirection[1].Y);
+			if (inDirection == null && outDirection == null)
+			{
+				//throw new Exception();
+			}
 			_polygon = polygon.Select(s => new PointF(s.X, s.Y)).ToList();
 			_line = new Line(line[0], line[1]);
 
-			_inCheck = Vector.Multiply(_inDirection, _line.Vector);
-			_outCheck = Vector.Multiply(_outDirection, _line.Vector);
+			if (inDirection != null && inDirection.Count == 2)
+			{
+				var inVector = new Vector(inDirection[0].X - inDirection[1].X, inDirection[0].Y - inDirection[1].Y);
+				_inCheck = Vector.Multiply(inVector, _line.Vector);
+			}
+			if (outDirection != null && outDirection.Count == 2)
+			{
+				var outVector = new Vector(outDirection[0].X - outDirection[1].X, outDirection[0].Y - outDirection[1].Y);
+				_outCheck = Vector.Multiply(outVector, _line.Vector);
+			}
 		}
 
 		private void ProcessCouting()
@@ -103,14 +112,15 @@ namespace cam_counting
 							MatchCurrentFrameBlobsToExistingBlobs(_blobs, currentFrameBlobs);
 						}
 
-						var atLeastOneBlobCrossedTheLine = CheckIfBlobsCrossedTheLine(_blobs, _horizontalLinePosition, ref _objectCount);
-						if (atLeastOneBlobCrossedTheLine)
-						{
-							if (Increment != null)
-							{
-								Increment.Invoke(this, null);
-							}
-						}
+						CheckIfBlobsCrossedTheLine(_blobs, ref _inCount, ref _outCount);
+
+						//if (atLeastOneBlobCrossedTheLine)
+						//{
+						//	if (Increment != null)
+						//	{
+						//		Increment.Invoke(this, null);
+						//	}
+						//}
 						currentFrameBlobs.Clear();
 						_isFirstFrames = false;
 					}
@@ -210,7 +220,7 @@ namespace cam_counting
 
 		}
 
-		private static bool CheckIfBlobsCrossedTheLine(List<Blob> blobs, int horizontalLinePosition, ref int carCount)
+		private bool CheckIfBlobsCrossedTheLine(List<Blob> blobs, ref int intCount, ref int outCount)
 		{
 			var atLeastOneBlobCrossedTheLine = false;
 			foreach (var blob in blobs)
@@ -221,22 +231,33 @@ namespace cam_counting
 					var prevFrameIndex = blob.CenterPositions.Count - 2;
 					var currFrameIndex = blob.CenterPositions.Count - 1;
 
-					var a = blob.CenterPositions[prevFrameIndex].Y > horizontalLinePosition &&
-							blob.CenterPositions[currFrameIndex].Y <= horizontalLinePosition;
-					var b = blob.CenterPositions[prevFrameIndex].Y <= horizontalLinePosition &&
-							blob.CenterPositions[currFrameIndex].Y > horizontalLinePosition;
-					if (a || b)
+					var currentPoint = blob.CenterPositions[currFrameIndex];
+					var prevPoint = blob.CenterPositions[prevFrameIndex];
+
+					if (_line.PointEvaluate(currentPoint) * _line.PointEvaluate(prevPoint) < 0)
 					{
-						carCount = carCount + 1;
 						atLeastOneBlobCrossedTheLine = true;
+						var vector = new Vector(currentPoint.X - prevPoint.X, currentPoint.Y - prevPoint.Y);
+						if (_inCheck != 0 && Vector.Multiply(vector, _line.Vector) * _inCheck > 0)
+						{
+							intCount = intCount + 1;
+							if (Increment != null)
+							{
+								Increment.Invoke(this, null);
+							}
+						}
+						if (_outCheck != 0 && Vector.Multiply(vector, _line.Vector) * _outCheck > 0)
+						{
+							outCount = outCount + 1;
+							if (Decrement != null)
+							{
+								Decrement.Invoke(this, null);
+							}
+						}
 					}
-
 				}
-
 			}
-
 			return atLeastOneBlobCrossedTheLine;
-
 		}
 
 		private Mat _theFirstOriginal;
@@ -247,16 +268,14 @@ namespace cam_counting
 
 		private bool _isFirstFrames = true;
 		readonly List<Blob> _blobs = new List<Blob>();
-		private int _horizontalLinePosition;
-		private int _objectCount;
+		private int _inCount;
+		private int _outCount;
 		private readonly List<PointF> _polygon;
-		private Line _line;
-		private Vector _inDirection;
-		private Vector _outDirection;
+		private readonly Line _line;
 		private bool _isFirstPush = true;
 		readonly Mat _temp = new Mat();
-		private double _inCheck;
-		private double _outCheck;
+		private readonly double _inCheck = 0;
+		private readonly double _outCheck = 0;
 		public void Dispose()
 		{
 			if (_theFirstOriginal != null) _theFirstOriginal.Dispose();

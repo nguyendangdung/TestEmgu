@@ -56,23 +56,38 @@ namespace Test
 			PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
 			a.SetPolygon(imageBox1.Size, new List<PointF>()
 			{
-				new PointF(50, 400),
-				new PointF(800, 400),
-				new PointF(600, 50),
+				new PointF(50, 600),
+				new PointF(1200, 600),
+				new PointF(800, 50),
 				new PointF(50, 20),
 				new PointF(10, 150),
 			});
-			LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
-			l.SetPolygon(imageBox1.Size, new List<PointF>()
+			LineOverlay l1 = new LineOverlay(this.imageBox1, Color.Red);
+			l1.SetPolygon(imageBox1.Size, new List<PointF>()
 			{
 				new PointF(20, 70),
-				new PointF(800, 280),
+				new PointF(1000, 280),
 			});
 
-			var outDirection = new List<PointF>();
-	        var inDirection = new List<PointF>();
+	        LineOverlay l2 = new LineOverlay(this.imageBox1, Color.Red);
+			l2.SetPolygon(imageBox1.Size, new List<PointF>()
+	        {
+		        new PointF(100, 70),
+		        new PointF(100, 280),
+	        });
 
-	        _countingService = new CountingService(a.GetPolygon(), l.GetPolygon(), inDirection, outDirection);
+			var outDirection = new List<PointF>()
+			{
+				new PointF(100, 70),
+				new PointF(100, 280),
+			};
+	        var inDirection = new List<PointF>()
+	        {
+		        new PointF(100, 280),
+		        new PointF(100, 70)
+			};
+
+	        _countingService = new CountingService(a.GetPolygon(), l1.GetPolygon(), inDirection, outDirection);
 	        _countingService.Increment += Increment;
 	        _countingService.Decrement += Decrement;
 	        videoCapture.ImageGrabbed += ImageGrabbed;

@@ -31,18 +31,19 @@ namespace cam_counting
 		public float B { get; }
 		public float C { get; }
 
-		public PointLineEvaluateResult PointEvaluate(Point point)
+		public double PointEvaluate(PointF point)
 		{
 			var result = A * point.X + B * point.Y + C;
-			if (result == 0)
-			{
-				return PointLineEvaluateResult.Zero;
-			}
-			if (result > 0)
-			{
-				return PointLineEvaluateResult.Positive;
-			}
-			return PointLineEvaluateResult.Negative;
+			return result;
+			//if (result == 0)
+			//{
+			//	return PointLineEvaluateResult.Zero;
+			//}
+			//if (result > 0)
+			//{
+			//	return PointLineEvaluateResult.Positive;
+			//}
+			//return PointLineEvaluateResult.Negative;
 		}
 	}
 }
