@@ -237,23 +237,27 @@ namespace cam_counting
 					if (_line.PointEvaluate(currentPoint) * _line.PointEvaluate(prevPoint) < 0)
 					{
 						atLeastOneBlobCrossedTheLine = true;
-						var vector = new Vector(currentPoint.X - prevPoint.X, currentPoint.Y - prevPoint.Y);
-						if (_inCheck != 0 && Vector.Multiply(vector, _line.Vector) * _inCheck > 0)
+						if (Increment != null)
 						{
-							intCount = intCount + 1;
-							if (Increment != null)
-							{
-								Increment.Invoke(this, null);
-							}
+							Increment.Invoke(this, null);
 						}
-						if (_outCheck != 0 && Vector.Multiply(vector, _line.Vector) * _outCheck > 0)
-						{
-							outCount = outCount + 1;
-							if (Decrement != null)
-							{
-								Decrement.Invoke(this, null);
-							}
-						}
+						//var vector = new Vector(currentPoint.X - prevPoint.X, currentPoint.Y - prevPoint.Y);
+						//if (_inCheck != 0 && Vector.Multiply(vector, _line.Vector) * _inCheck > 0)
+						//{
+						//	intCount = intCount + 1;
+						//	if (Increment != null)
+						//	{
+						//		Increment.Invoke(this, null);
+						//	}
+						//}
+						//if (_outCheck != 0 && Vector.Multiply(vector, _line.Vector) * _outCheck > 0)
+						//{
+						//	outCount = outCount + 1;
+						//	if (Decrement != null)
+						//	{
+						//		Decrement.Invoke(this, null);
+						//	}
+						//}
 					}
 				}
 			}
