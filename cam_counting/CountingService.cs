@@ -4,19 +4,18 @@ using System.Linq;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using System.Drawing;
+using System.Windows;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace cam_counting
 {
 	public class CountingService : ICountingService, IDisposable
 	{
-		//private bool _isSetup = false;
-		private bool _isFirstPush = true;
 		public EventHandler Increment { get; set; }
-		public EventHandler Decrement { get; set; }
-
-		readonly Mat _temp = new Mat();
+		public EventHandler Decrement { get; set; }		
 
 		public List<Rectangle> PushFrame(Mat mat)
 		{
@@ -41,12 +40,18 @@ namespace cam_counting
 			return _blobs.Where(s => s.StillBeingTracked).Select(s => s.CurrentBoundingRect).ToList();
 		}
 
-		public CountingService(List<PointF> polygon, List<PointF> line, List<PointF> inDirection, List<PointF> outDirection)
+		public CountingService(List<PointF> polygon, 
+			List<PointF> line, 
+			List<PointF> inDirection, 
+			List<PointF> outDirection)
 		{
-			_inDirection = inDirection.Select(s => new PointF(s.X, s.Y)).ToList();
-			_outDirection = outDirection.Select(s => new PointF(s.X, s.Y)).ToList();
+			_inDirection = new Vector(inDirection[0].X - inDirection[1].X, inDirection[0].Y - inDirection[1].Y);
+			_outDirection = new Vector(outDirection[0].X - outDirection[1].X, outDirection[0].Y - outDirection[1].Y);
 			_polygon = polygon.Select(s => new PointF(s.X, s.Y)).ToList();
-			_line = line.Select(s => new PointF(s.X, s.Y)).ToList();
+			_line = new Line(line[0], line[1]);
+
+			_inCheck = Vector.Multiply(_inDirection, _line.Vector);
+			_outCheck = Vector.Multiply(_outDirection, _line.Vector);
 		}
 
 		private void ProcessCouting()
@@ -245,10 +250,13 @@ namespace cam_counting
 		private int _horizontalLinePosition;
 		private int _objectCount;
 		private readonly List<PointF> _polygon;
-		private List<PointF> _line;
-		private List<PointF> _inDirection;
-		private List<PointF> _outDirection;
-
+		private Line _line;
+		private Vector _inDirection;
+		private Vector _outDirection;
+		private bool _isFirstPush = true;
+		readonly Mat _temp = new Mat();
+		private double _inCheck;
+		private double _outCheck;
 		public void Dispose()
 		{
 			if (_theFirstOriginal != null) _theFirstOriginal.Dispose();
