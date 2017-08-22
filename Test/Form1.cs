@@ -48,6 +48,7 @@ namespace Test
         private void button1_Click(object sender, EventArgs e)
         {
             _countingService = new CountingService();
+			_countingService.Setup(null, null);
             _countingService.Increment += Increment;
             _countingService.Decrement += Decrement;
 			videoCapture.ImageGrabbed += ImageGrabbed;

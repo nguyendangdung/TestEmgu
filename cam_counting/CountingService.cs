@@ -206,7 +206,8 @@ namespace cam_counting
                     var prevFrameIndex = blob.CenterPositions.Count - 2;
                     var currFrameIndex = blob.CenterPositions.Count - 1;
 
-                    if (blob.CenterPositions[prevFrameIndex].Y > horizontalLinePosition & blob.CenterPositions[currFrameIndex].Y <= horizontalLinePosition)
+                    if (blob.CenterPositions[prevFrameIndex].Y > horizontalLinePosition && blob.CenterPositions[currFrameIndex].Y <= horizontalLinePosition
+						|| blob.CenterPositions[prevFrameIndex].Y <= horizontalLinePosition && blob.CenterPositions[currFrameIndex].Y > horizontalLinePosition)
                     {
                         carCount = carCount + 1;
                         atLeastOneBlobCrossedTheLine = true;
