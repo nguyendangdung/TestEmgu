@@ -43,8 +43,8 @@ namespace cam_counting
 
 		public CountingService(List<PointF> polygon, List<PointF> line)
 		{
-			_polygon = polygon;
-			_line = line;
+			_polygon = polygon.Select(s => new PointF(s.X, s.Y)).ToList();
+			_line = line.Select(s => new PointF(s.X, s.Y)).ToList();
 		}
 
 		private void ProcessCouting()
