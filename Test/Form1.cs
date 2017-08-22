@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using cam_counting;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using OneVision.View.UI.UserControls.LiveView;
 
 namespace Test
@@ -21,6 +22,7 @@ namespace Test
 	    readonly Mat _frame = new Mat();
 	    CountingService _countingService;
 	    private VideoCapture videoCapture = new VideoCapture(@"cars.mp4");
+	    private readonly MCvScalar _scalarRed = new MCvScalar(0.0, 0.0, 255.0);
 		public Form1()
         {
             InitializeComponent();
@@ -54,34 +56,44 @@ namespace Test
 			videoCapture.ImageGrabbed += ImageGrabbed;
 			videoCapture.Start();
 
-	        PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
-			a.SetPolygon(imageBox1.Size, new List<PointF>()
-			{
-				new PointF(50, 300),
-				new PointF(800, 300),
-				new PointF(600, 50),
-				new PointF(50, 20),
-				new PointF(10, 150),
-			});
-			LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
-			l.SetPolygon(imageBox1.Size, new List<PointF>()
-			{
-				new PointF(20, 70),
-				new PointF(800, 280),
-			});
+	  //      PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
+			//a.SetPolygon(imageBox1.Size, new List<PointF>()
+			//{
+			//	new PointF(50, 300),
+			//	new PointF(800, 300),
+			//	new PointF(600, 50),
+			//	new PointF(50, 20),
+			//	new PointF(10, 150),
+			//});
+			//LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
+			//l.SetPolygon(imageBox1.Size, new List<PointF>()
+			//{
+			//	new PointF(20, 70),
+			//	new PointF(800, 280),
+			//});
 
 		}
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
-			((VideoCapture)sender).Retrieve(_frame, 0);
-			imageBox1.Image = _frame;
-			_countingService.PushFrame(_frame);
+			((VideoCapture)sender).Retrieve(_frame);
+		    CvInvoke.Resize(_frame, _frame, new Size(400, 300));
+			var rec = _countingService.PushFrame(_frame);
+		    Draw(rec, _frame);
+		    imageBox1.Image = _frame;
 
-		    _frameCount++;
+			_frameCount++;
 		    if (_frameCount != (int) videoCapture.GetCaptureProperty(CapProp.FrameCount)) return;
 		    _frameCount = 0;
 		    videoCapture.SetCaptureProperty(CapProp.PosFrames, 0);
+	    }
+
+	    public void Draw(List<Rectangle> rectangles, Mat mat)
+	    {
+		    for (var i = 0; i <= rectangles.Count - 1; i++)
+		    {
+			    CvInvoke.Rectangle(mat, rectangles[i], _scalarRed);
+			}
 	    }
 	}
 }
