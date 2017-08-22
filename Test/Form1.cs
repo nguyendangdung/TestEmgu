@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using cam_counting;
@@ -56,28 +57,29 @@ namespace Test
 			videoCapture.ImageGrabbed += ImageGrabbed;
 			videoCapture.Start();
 
-	  //      PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
-			//a.SetPolygon(imageBox1.Size, new List<PointF>()
-			//{
-			//	new PointF(50, 300),
-			//	new PointF(800, 300),
-			//	new PointF(600, 50),
-			//	new PointF(50, 20),
-			//	new PointF(10, 150),
-			//});
-			//LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
-			//l.SetPolygon(imageBox1.Size, new List<PointF>()
-			//{
-			//	new PointF(20, 70),
-			//	new PointF(800, 280),
-			//});
+			PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
+			a.SetPolygon(imageBox1.Size, new List<PointF>()
+			{
+				new PointF(50, 400),
+				new PointF(800, 400),
+				new PointF(600, 50),
+				new PointF(50, 20),
+				new PointF(10, 150),
+			});
+			LineOverlay l = new LineOverlay(this.imageBox1, Color.Red);
+			l.SetPolygon(imageBox1.Size, new List<PointF>()
+			{
+				new PointF(20, 70),
+				new PointF(800, 280),
+			});
 
 		}
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
+			Thread.Sleep(100);
 			((VideoCapture)sender).Retrieve(_frame);
-		    CvInvoke.Resize(_frame, _frame, new Size(400, 300));
+		    //CvInvoke.Resize(_frame, _frame, new Size(400, 300));
 			var rec = _countingService.PushFrame(_frame);
 		    Draw(rec, _frame);
 		    imageBox1.Image = _frame;
@@ -92,7 +94,7 @@ namespace Test
 	    {
 		    for (var i = 0; i <= rectangles.Count - 1; i++)
 		    {
-			    CvInvoke.Rectangle(mat, rectangles[i], _scalarRed);
+			    CvInvoke.Rectangle(mat, rectangles[i], _scalarRed, 2, LineType.AntiAlias);
 			}
 	    }
 	}

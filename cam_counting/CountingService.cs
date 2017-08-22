@@ -24,8 +24,8 @@ namespace cam_counting
 			if (!_isSetup) throw new Exception();
 
 			//Cho size nhỏ lại để tăng tốc độ apply filter
-			CvInvoke.Resize(mat, _temp, new Size(400, 300));
-			CvInvoke.CvtColor(_temp, _temp, ColorConversion.Bgr2Gray);
+			//CvInvoke.Resize(mat, _temp, new Size(400, 300));
+			CvInvoke.CvtColor(mat, _temp, ColorConversion.Bgr2Gray);
 			CvInvoke.GaussianBlur(_temp, _temp, new Size(5, 5), 0);
 			_theSecondOriginal = _temp.Clone();
 			_horizontalLinePosition = (int)Math.Round(mat.Rows * 0.35);
