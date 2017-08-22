@@ -74,7 +74,6 @@
 			this.Controls.Add(this.imageBox1);
 			this.Name = "Form1";
 			this.Text = "Form1";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

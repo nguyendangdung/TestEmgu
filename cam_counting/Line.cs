@@ -22,14 +22,14 @@ namespace cam_counting
 			var vector = new Vector(first.X - second.X, first.Y - second.Y);
 			vector.Normalize();
 			Vector = new Vector(-vector.Y, vector.X);
-			A = (int)Vector.X;
-			B = (int)Vector.Y;
+			A = Vector.X;
+			B = Vector.Y;
 			C = -(A * first.X + B * first.Y);
 		}
 
-		public float A { get; }
-		public float B { get; }
-		public float C { get; }
+		public double A { get; }
+		public double B { get; }
+		public double C { get; }
 
 		public double PointEvaluate(PointF point)
 		{
