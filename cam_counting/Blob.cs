@@ -11,14 +11,14 @@ namespace cam_counting
 	{
 		public VectorOfPoint CurrentContour;
 		public Rectangle CurrentBoundingRect;
-		public List<Point> CenterPositions = new List<Point>();
+		public List<PointF> CenterPositions = new List<PointF>();
 		public double CurrentDiagonalSize;
 		public double CurrentAspectRatio;
 		public int CurrentRectArea;
 		public bool CurrentMatchFoundOrNewBlob;
 		public bool StillBeingTracked;
 		public int NumOfConsecutiveFramesWithoutAMatch;
-		public Point PredictedNextPosition;
+		public PointF PredictedNextPosition;
 
 		public Blob(VectorOfPoint contour)
 		{

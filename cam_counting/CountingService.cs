@@ -11,7 +11,7 @@ namespace cam_counting
 {
 	public class CountingService : ICountingService, IDisposable
 	{
-		private bool _isSetup = false;
+		//private bool _isSetup = false;
 		private bool _isFirstPush = true;
 		public EventHandler Increment { get; set; }
 		public EventHandler Decrement { get; set; }
@@ -21,7 +21,7 @@ namespace cam_counting
 		public List<Rectangle> PushFrame(Mat mat)
 		{
 			if (mat == null) throw new ArgumentNullException("mat");
-			if (!_isSetup) throw new Exception();
+			//if (!_isSetup) throw new Exception();
 
 			//Cho size nhỏ lại để tăng tốc độ apply filter
 			//CvInvoke.Resize(mat, _temp, new Size(400, 300));
@@ -41,9 +41,10 @@ namespace cam_counting
 			return _blobs.Where(s => s.StillBeingTracked).Select(s => s.CurrentBoundingRect).ToList();
 		}
 
-		public void Setup(List<PointF> polygon, List<PointF> line)
+		public CountingService(List<PointF> polygon, List<PointF> line)
 		{
-			_isSetup = true;
+			_polygon = polygon;
+			_line = line;
 		}
 
 		private void ProcessCouting()
@@ -72,7 +73,8 @@ namespace cam_counting
 						{
 							CvInvoke.ConvexHull(contours[i], convexHulls[i]);
 							var possibleBlob = new Blob(convexHulls[i]);
-							if (possibleBlob.CurrentRectArea > 400 & 
+							var pointInsidePolygon = Hepler.PointInsidePolygon(_polygon, possibleBlob.CenterPositions[0]);
+							if (pointInsidePolygon & possibleBlob.CurrentRectArea > 400 & 
 								possibleBlob.CurrentAspectRatio > 0.2 & 
 								possibleBlob.CurrentAspectRatio < 4.0 & 
 								possibleBlob.CurrentBoundingRect.Width > 30 & 
@@ -168,7 +170,7 @@ namespace cam_counting
 			}
 
 		}
-		private static double DistanceBetweenPoints(Point point1, Point point2)
+		private static double DistanceBetweenPoints(PointF point1, PointF point2)
 		{
 
 			var intX = Math.Abs(point1.X - point2.X);
@@ -240,7 +242,8 @@ namespace cam_counting
 		readonly List<Blob> _blobs = new List<Blob>();
 		private int _horizontalLinePosition;
 		private int _objectCount;
-
+		private List<PointF> _polygon;
+		private List<PointF> _line;
 
 		public void Dispose()
 		{

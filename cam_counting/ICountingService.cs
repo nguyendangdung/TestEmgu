@@ -11,6 +11,6 @@ namespace cam_counting
 		EventHandler Decrement { get; set; }
 		List<Rectangle> PushFrame(Mat mat);
 
-		void Setup(List<PointF> polygon, List<PointF> line);
+		//void Setup(List<PointF> polygon, List<PointF> line);
 	}
 }

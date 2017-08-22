@@ -50,12 +50,8 @@ namespace Test
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _countingService = new CountingService();
-			_countingService.Setup(null, null);
-            _countingService.Increment += Increment;
-            _countingService.Decrement += Decrement;
-			videoCapture.ImageGrabbed += ImageGrabbed;
-			videoCapture.Start();
+            
+			
 
 			PolygonOverlay a = new PolygonOverlay(this.imageBox1, Color.Blue);
 			a.SetPolygon(imageBox1.Size, new List<PointF>()
@@ -72,12 +68,18 @@ namespace Test
 				new PointF(20, 70),
 				new PointF(800, 280),
 			});
+	        _countingService = new CountingService(a.GetPolygon(), l.GetPolygon());
+	        //_countingService.Setup(null, null);
+	        _countingService.Increment += Increment;
+	        _countingService.Decrement += Decrement;
+	        videoCapture.ImageGrabbed += ImageGrabbed;
+	        videoCapture.Start();
 
 		}
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
-			Thread.Sleep(100);
+			//Thread.Sleep(50);
 			((VideoCapture)sender).Retrieve(_frame);
 		    //CvInvoke.Resize(_frame, _frame, new Size(400, 300));
 			var rec = _countingService.PushFrame(_frame);
