@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using Emgu.CV;
 
 namespace cam_counting
@@ -9,6 +11,6 @@ namespace cam_counting
 		EventHandler Decrement { get; set; }
 		void PushFrame(Mat mat);
 
-		void Setup(Poligon poligon, Line line);
+		void Setup(List<PointF> polygon, List<PointF> line);
 	}
 }

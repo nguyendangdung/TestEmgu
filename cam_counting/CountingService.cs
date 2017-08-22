@@ -41,7 +41,7 @@ namespace cam_counting
 			
         }
 
-	    public void Setup(Poligon poligon, Line line)
+	    public void Setup(List<PointF> polygon, List<PointF> line)
 	    {
 		    _isSetup = true;
 	    }
