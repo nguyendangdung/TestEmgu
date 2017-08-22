@@ -72,7 +72,13 @@ namespace cam_counting
 						{
 							CvInvoke.ConvexHull(contours[i], convexHulls[i]);
 							var possibleBlob = new Blob(convexHulls[i]);
-							if (possibleBlob.CurrentRectArea > 400 & possibleBlob.CurrentAspectRatio > 0.2 & possibleBlob.CurrentAspectRatio < 4.0 & possibleBlob.CurrentBoundingRect.Width > 30 & possibleBlob.CurrentBoundingRect.Height > 30 & possibleBlob.CurrentDiagonalSize > 60.0 & CvInvoke.ContourArea(possibleBlob.CurrentContour) / possibleBlob.CurrentRectArea > 0.5)
+							if (possibleBlob.CurrentRectArea > 400 & 
+								possibleBlob.CurrentAspectRatio > 0.2 & 
+								possibleBlob.CurrentAspectRatio < 4.0 & 
+								possibleBlob.CurrentBoundingRect.Width > 30 & 
+								possibleBlob.CurrentBoundingRect.Height > 30 & 
+								possibleBlob.CurrentDiagonalSize > 60.0 & 
+								CvInvoke.ContourArea(possibleBlob.CurrentContour) / possibleBlob.CurrentRectArea > 0.5)
 							{
 								currentFrameBlobs.Add(possibleBlob);
 							}
