@@ -9,7 +9,7 @@ namespace cam_counting
 	{
 		public PointF First { get; }
 		public PointF Second { get; }
-
+		public Vector Vector { get; }
 		public Line(PointF first, PointF second)
 		{
 			First = first;
@@ -21,9 +21,9 @@ namespace cam_counting
 			}
 			var vector = new Vector(first.X - second.X, first.Y - second.Y);
 			vector.Normalize();
-			vector = new Vector(-vector.Y, vector.X);
-			A = (int)vector.X;
-			B = (int)vector.Y;
+			Vector = new Vector(-vector.Y, vector.X);
+			A = (int)Vector.X;
+			B = (int)Vector.Y;
 			C = -(A * first.X + B * first.Y);
 		}
 
