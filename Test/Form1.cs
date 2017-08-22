@@ -79,7 +79,7 @@ namespace Test
 
 	    private void ImageGrabbed(object sender, EventArgs e)
 	    {
-			//Thread.Sleep(50);
+			Thread.Sleep(100);
 			((VideoCapture)sender).Retrieve(_frame);
 		    //CvInvoke.Resize(_frame, _frame, new Size(400, 300));
 			var rec = _countingService.PushFrame(_frame);
