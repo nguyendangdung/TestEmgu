@@ -68,8 +68,11 @@ namespace Test
 				new PointF(20, 70),
 				new PointF(800, 280),
 			});
-	        _countingService = new CountingService(a.GetPolygon(), l.GetPolygon());
-	        //_countingService.Setup(null, null);
+
+			var outDirection = new List<PointF>();
+	        var inDirection = new List<PointF>();
+
+	        _countingService = new CountingService(a.GetPolygon(), l.GetPolygon(), inDirection, outDirection);
 	        _countingService.Increment += Increment;
 	        _countingService.Decrement += Decrement;
 	        videoCapture.ImageGrabbed += ImageGrabbed;

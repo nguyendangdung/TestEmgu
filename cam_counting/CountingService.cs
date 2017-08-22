@@ -41,8 +41,10 @@ namespace cam_counting
 			return _blobs.Where(s => s.StillBeingTracked).Select(s => s.CurrentBoundingRect).ToList();
 		}
 
-		public CountingService(List<PointF> polygon, List<PointF> line)
+		public CountingService(List<PointF> polygon, List<PointF> line, List<PointF> inDirection, List<PointF> outDirection)
 		{
+			_inDirection = inDirection.Select(s => new PointF(s.X, s.Y)).ToList();
+			_outDirection = outDirection.Select(s => new PointF(s.X, s.Y)).ToList();
 			_polygon = polygon.Select(s => new PointF(s.X, s.Y)).ToList();
 			_line = line.Select(s => new PointF(s.X, s.Y)).ToList();
 		}
@@ -242,8 +244,10 @@ namespace cam_counting
 		readonly List<Blob> _blobs = new List<Blob>();
 		private int _horizontalLinePosition;
 		private int _objectCount;
-		private List<PointF> _polygon;
+		private readonly List<PointF> _polygon;
 		private List<PointF> _line;
+		private List<PointF> _inDirection;
+		private List<PointF> _outDirection;
 
 		public void Dispose()
 		{
