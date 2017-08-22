@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="Blob.cs" />
     <Compile Include="CountingService.cs" />
-    <Compile Include="Helper.cs" />
     <Compile Include="ICountingService.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Poligon.cs" />
