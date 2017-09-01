@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayCastAlgo", "RayCastAlgo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "car-haar-cascades", "car-haar-cascades\car-haar-cascades.csproj", "{8CB6B8A6-F0AE-4AE6-9913-4146BD0F46C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emgu_ObjectTracking", "Emgu_ObjectTracking\Emgu_ObjectTracking.csproj", "{8BDA52E8-1898-4922-9277-21FA2A1911A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,18 @@ Global
 		{8CB6B8A6-F0AE-4AE6-9913-4146BD0F46C1}.Release|x64.Build.0 = Release|Any CPU
 		{8CB6B8A6-F0AE-4AE6-9913-4146BD0F46C1}.Release|x86.ActiveCfg = Release|Any CPU
 		{8CB6B8A6-F0AE-4AE6-9913-4146BD0F46C1}.Release|x86.Build.0 = Release|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|x64.ActiveCfg = Debug|x64
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|x64.Build.0 = Debug|x64
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Debug|x86.Build.0 = Debug|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|x64.ActiveCfg = Release|x64
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|x64.Build.0 = Release|x64
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{8BDA52E8-1898-4922-9277-21FA2A1911A7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
