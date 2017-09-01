@@ -31,16 +31,19 @@ namespace car_haar_cascades
 					{
 						break;
 					}
-					using (UMat ugray = new UMat())
+					using (Mat ugray = new Mat())
 					{
 						CvInvoke.CvtColor(frame, ugray, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
-
-						CvInvoke.EqualizeHist(ugray, ugray);
-						var faces = cars.DetectMultiScale(ugray);
-						foreach (var face in faces)
-							CvInvoke.Rectangle(frame, face, new Bgr(Color.Red).MCvScalar, 2);
-
-
+						//CvInvoke.EqualizeHist(ugray, ugray);
+						var carsRec = cars.DetectMultiScale(ugray,
+							1.1,
+							1,
+							new Size(30, 30),
+							ugray.Size);
+						foreach (var car in carsRec)
+						{
+							CvInvoke.Rectangle(frame, car, new Bgr(Color.Red).MCvScalar, 2);
+						}
 						imageBox1.Image = frame;
 						Application.DoEvents();
 					}
