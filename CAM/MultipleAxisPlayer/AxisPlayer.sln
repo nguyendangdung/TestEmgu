@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AxisPlayer", "AxisPlayer\AxisPlayer.csproj", "{12F88F08-7A3D-48F8-A7B3-03A613922A9D}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Debug|x86.ActiveCfg = Debug|x86
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Debug|x86.Build.0 = Debug|x86
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Release|x86.ActiveCfg = Release|x86
+		{12F88F08-7A3D-48F8-A7B3-03A613922A9D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

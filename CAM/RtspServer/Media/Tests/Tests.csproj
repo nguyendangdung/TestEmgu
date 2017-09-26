@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7E4C492-D4D7-43F1-ADD8-B82BE00890B3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Media.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Tests.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Tests.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Tests.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common\Properties\MediaAssemblyInfo.cs">
+      <Link>MediaAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common\Properties\MediaAssemblyVersionInfo.cs">
+      <Link>MediaAssemblyVersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="ContainerInspector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContainerInspector.Designer.cs">
+      <DependentUpon>ContainerInspector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RtspInspector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RtspInspector.Designer.cs">
+      <DependentUpon>RtspInspector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="bark.rtp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Codecs\Video\H264\Media.Codecs.Video.H264.csproj">
+      <Project>{ff0ee03e-0a02-40f1-8064-d055ef41f949}</Project>
+      <Name>Media.Codecs.Video.H264</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Codecs\Video\Jpeg\Media.Codecs.Video.Jpeg.csproj">
+      <Project>{a12d2eda-c1ba-4d4e-8e7d-38f8048bc161}</Project>
+      <Name>Media.Codecs.Video.Jpeg</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Codecs\Video\Mpeg4\Media.Codecs.Video.Mpeg4.csproj">
+      <Project>{6e191592-acc7-4444-a7e3-88258c8709fe}</Project>
+      <Name>Media.Codecs.Video.Mpeg4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Media.Common.csproj">
+      <Project>{c64cdaed-c863-454d-bfa6-95685868d054}</Project>
+      <Name>Media.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Asf\Media.Containers.Asf.csproj">
+      <Project>{aa92d188-646f-47fe-8fff-bd0b9ca720a0}</Project>
+      <Name>Media.Containers.Asf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\BaseMedia\Media.Containers.BaseMedia.csproj">
+      <Project>{b389b0f4-c788-436e-a108-d01f38fcb3ed}</Project>
+      <Name>Media.Containers.BaseMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Gxf\Media.Containers.Gxf.csproj">
+      <Project>{e51e5ce2-7ebe-4e60-936e-df5b63c63699}</Project>
+      <Name>Media.Containers.Gxf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Matroska\Media.Containers.Matroska.csproj">
+      <Project>{74a5112f-9638-4ad0-973d-60e558ecb93a}</Project>
+      <Name>Media.Containers.Matroska</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Mcf\Media.Containers.Mcf.csproj">
+      <Project>{1561de7a-8ed5-4bb0-9951-e7d807581c72}</Project>
+      <Name>Media.Containers.Mcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Media.Container.csproj">
+      <Project>{fe980f3f-30cb-44d6-bce4-462c12038440}</Project>
+      <Name>Media.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Mpeg\Media.Containers.Mpeg.csproj">
+      <Project>{50484884-d642-4c02-90fe-cb6b41342deb}</Project>
+      <Name>Media.Containers.Mpeg</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Mxf\Media.Containers.Mxf.csproj">
+      <Project>{6e068dae-2a49-497d-bd67-adf92730156e}</Project>
+      <Name>Media.Containers.Mxf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Nut\Media.Containers.Nut.csproj">
+      <Project>{a799b0e7-6d05-46b4-b276-9b12f73596b7}</Project>
+      <Name>Media.Containers.Nut</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Ogg\Media.Containers.Ogg.csproj">
+      <Project>{20228080-72cf-4bad-b3cc-7db267643175}</Project>
+      <Name>Media.Containers.Ogg</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Real\Media.Containers.Real.csproj">
+      <Project>{b45a4b28-cd7e-4b09-9b33-d447a63626e7}</Project>
+      <Name>Media.Containers.Real</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Containers\Riff\Media.Containers.Riff.csproj">
+      <Project>{beaa546e-6c3d-47f4-85d9-6bb598b5d8b8}</Project>
+      <Name>Media.Containers.Riff</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rtmp\Media.Rtmp.csproj">
+      <Project>{ce4ff4bf-1c21-440a-bd39-25b809803e71}</Project>
+      <Name>Media.Rtmp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RtpTools\Media.RtpTools.csproj">
+      <Project>{05019b1d-58b3-44a4-8ef4-50a3fe740746}</Project>
+      <Name>Media.RtpTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rtp\Media.Rtp.csproj">
+      <Project>{fd0101f4-1d22-434c-8025-42cac8176c75}</Project>
+      <Name>Media.Rtp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RtspServer\Media.RtspServer.csproj">
+      <Project>{905deffb-6dbc-4cf0-bed9-bb96aea0193f}</Project>
+      <Name>Media.RtspServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rtsp\Media.Rtsp.csproj">
+      <Project>{2dc7fd7b-2497-480b-a927-17f4846e5c74}</Project>
+      <Name>Media.Rtsp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sdp\Media.Sdp.csproj">
+      <Project>{cbe0c273-fb54-46e5-9a28-21c325a85d15}</Project>
+      <Name>Media.Sdp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ContainerInspector.resx">
+      <DependentUpon>ContainerInspector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RtspInspector.resx">
+      <DependentUpon>RtspInspector.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

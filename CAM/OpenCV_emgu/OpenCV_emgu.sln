@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCV_emgu", "OpenCV_emgu\OpenCV_emgu.csproj", "{53E10843-46D2-4275-9884-B1467D277190}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplePlayer", "MultiplePlayer\MultiplePlayer.csproj", "{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamRecorder", "StreamRecorder\StreamRecorder.csproj", "{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53E10843-46D2-4275-9884-B1467D277190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53E10843-46D2-4275-9884-B1467D277190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53E10843-46D2-4275-9884-B1467D277190}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{53E10843-46D2-4275-9884-B1467D277190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53E10843-46D2-4275-9884-B1467D277190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53E10843-46D2-4275-9884-B1467D277190}.Release|x64.ActiveCfg = Release|Any CPU
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Debug|x64.ActiveCfg = Debug|x64
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Debug|x64.Build.0 = Debug|x64
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Release|x64.ActiveCfg = Release|x64
+		{29F4EE97-0B38-46D9-ABDA-A9611334A2D9}.Release|x64.Build.0 = Release|x64
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Debug|x64.ActiveCfg = Debug|x64
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Debug|x64.Build.0 = Debug|x64
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Release|x64.ActiveCfg = Release|x64
+		{DD4683D0-01F6-4093-9E2C-2AF747DEF4F2}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

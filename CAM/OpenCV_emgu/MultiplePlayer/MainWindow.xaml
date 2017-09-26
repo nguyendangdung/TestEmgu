@@ -1,0 +1,32 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MultiplePlayer" x:Class="MultiplePlayer.MainWindow"
+        Title="MainWindow" Height="550" Width="525">
+    <Grid x:Name="grdMain">
+        <Button Content="Play" HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Top" Width="75" Name="btnPlay" Click="btnPlay_Click"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="30,67,0,0" VerticalAlignment="Top" Width="100" x:Name="player1"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="135,67,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="240,67,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy1"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="345,67,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy2"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="30,167,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy3"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="135,167,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy4"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="240,167,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy5"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="345,167,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy6"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="30,273,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy7"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="135,273,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy8"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="240,273,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy9"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="345,273,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy10"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="30,373,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy11"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="135,373,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy12"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="240,373,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy13"/>
+        <local:Player HorizontalAlignment="Left" Height="100" Margin="345,373,0,0" VerticalAlignment="Top" Width="100" x:Name="player1_Copy14"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,0,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="67" x:Name="playerCount"/>
+        <Button Content="Stop" HorizontalAlignment="Left" Margin="420,23,0,0" VerticalAlignment="Top" Width="75" x:Name="btnStop" Click="btnStop_Click" />
+        <CheckBox Content="Use OpenCL" HorizontalAlignment="Left" Margin="82,3,0,0" VerticalAlignment="Top" x:Name="ckUseOpenCL" Checked="ckUseOpenCL_Checked"/>
+        <CheckBox Content="Show Image" HorizontalAlignment="Left" Margin="185,3,0,0" VerticalAlignment="Top" x:Name="ckShowImage"/>
+        <CheckBox Content="Use Optimized" HorizontalAlignment="Left" Margin="82,23,0,0" VerticalAlignment="Top" x:Name="ckUseOptimized" Checked="ckUseOptimized_Checked" />
+        <CheckBox Content="Use GLImageView" HorizontalAlignment="Left" Margin="185,23,0,0" VerticalAlignment="Top" x:Name="ckGLImageView"/>
+
+    </Grid>
+</Window>
